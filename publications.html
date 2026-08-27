@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>發表著作 | 倫理計算實驗室</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">首頁</a>
+      <a href="research.html">研究方向</a>
+      <a href="members.html">成員介紹</a>
+      <a href="faculty.html">教授介紹</a>
+      <a href="publications.html" class="active">發表著作</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- 發表著作 -->
+  <section class="page-header">
+    <div class="container">
+      <h2 class="section-title">發表著作</h2>
+      <p class="section-subtitle">近年重點論文發表</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="pub-filter" id="pubFilter">
+        <button class="pub-filter-btn active" data-year="all">全部</button>
+        <button class="pub-filter-btn" data-year="2024">2024</button>
+        <button class="pub-filter-btn" data-year="2023">2023</button>
+        <button class="pub-filter-btn" data-year="2022">2022</button>
+      </div>
+
+      <ul class="pub-list" id="pubList">
+        <li class="pub-item" data-year="2024">
+          <span class="pub-year">2024</span>
+          <div class="pub-body">
+            <p class="pub-title">Online Social Community City Classification</p>
+            <p class="pub-meta">Jiarui Wang, George Barnett, Norman Matloff, S. Felix Wu. <em>ASONAM 2024.</em></p>
+          </div>
+        </li>
+        <li class="pub-item" data-year="2024">
+          <span class="pub-year">2024</span>
+          <div class="pub-body">
+            <p class="pub-title">Online Social Community Neighborhood Formation</p>
+            <p class="pub-meta">Jiarui Wang, George Barnett, Norman Matloff, S. Felix Wu. <em>ASONAM 2024.</em></p>
+          </div>
+        </li>
+        <li class="pub-item" data-year="2023">
+          <span class="pub-year">2023</span>
+          <div class="pub-body">
+            <p class="pub-title">Online Social Community Sub-Location Classification</p>
+            <p class="pub-meta">Jiarui Wang, Xiaoyun Wang, Chun-Ming Lai, S. Felix Wu. <em>ASONAM 2023.</em></p>
+          </div>
+        </li>
+        <li class="pub-item" data-year="2022">
+          <span class="pub-year">2022</span>
+          <div class="pub-body">
+            <p class="pub-title">Fake Node Attacks on Graph Convolutional Networks</p>
+            <p class="pub-meta">Xiaoyun Wang, Minhao Cheng, Joe Eaton, Cho-Jui Hsieh, S. Felix Wu. <em>Journal of Computational and Cognitive Engineering</em>, 2022.</p>
+          </div>
+        </li>
+        <li class="pub-item" data-year="2021">
+          <span class="pub-year">2021</span>
+          <div class="pub-body">
+            <p class="pub-title">The implementation of data storage and analytics platform for big data lake of electricity usage with Spark</p>
+            <p class="pub-meta">Chao-Tung Yang, Tzu-Yang Chen, Endah Kristiani, Shyhtsun Felix Wu. <em>The Journal of Supercomputing</em>, 2021.</p>
+          </div>
+        </li>
+        <li class="pub-item" data-year="2019">
+          <span class="pub-year">2019</span>
+          <div class="pub-body">
+            <p class="pub-title">Using RFID Technology to develop of an intelligent equipment lock management system</p>
+            <p class="pub-meta">Yeh-Cheng Chen, Reuy-Shun Chen, Hung-Min Sun, S. Felix Wu. <em>International Journal of Computational Science and Engineering</em>, 2019.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <ul class="footer-contact">
+      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
+      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
+      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+    </ul>
+    <p>&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
