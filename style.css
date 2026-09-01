@@ -285,36 +285,29 @@ ul {
 }
 
 .member-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .member-card {
+  display: flex;
+  align-items: stretch;
+  min-height: 200px;
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 28px 24px;
-  text-align: center;
+  overflow: hidden;
+  text-align: left;
 }
 
-.member-card.faculty {
-  max-width: 340px;
-  margin: 0 auto;
-}
-
-.member-avatar {
+/* 卡片左半：照片 */
+.member-photo {
   position: relative;
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 16px;
-  border-radius: 50%;
+  flex: 0 0 42%;
   background: var(--color-navy);
-  color: #fff;
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
   overflow: hidden;
 }
 
-.member-avatar img {
+.member-photo img {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -323,11 +316,24 @@ ul {
   object-fit: cover;
 }
 
-.member-avatar .avatar-fallback {
+.member-photo .avatar-fallback {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+}
+
+/* 卡片右半：姓名與資訊，欄位隨內容增減自動延伸 */
+.member-info {
+  flex: 1;
+  min-width: 0;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
