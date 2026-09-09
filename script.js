@@ -35,3 +35,23 @@ if (pubFilter) {
     });
   });
 }
+
+// Graduates cohort filter
+const gradFilter = document.getElementById('gradFilter');
+const gradItems = document.querySelectorAll('#gradList .member-card');
+
+if (gradFilter) {
+  gradFilter.addEventListener('click', (e) => {
+    const btn = e.target.closest('.pub-filter-btn');
+    if (!btn) return;
+
+    gradFilter.querySelectorAll('.pub-filter-btn').forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cohort = btn.dataset.cohort;
+    gradItems.forEach((item) => {
+      const match = cohort === 'all' || item.dataset.cohort === cohort;
+      item.classList.toggle('hidden', !match);
+    });
+  });
+}

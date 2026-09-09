@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>研究方向 | 倫理計算實驗室</title>
+<title>畢業生 | 倫理計算實驗室</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,36 +16,55 @@
     </button>
     <nav class="site-nav" id="siteNav">
       <a href="index.html">首頁</a>
-      <a href="research.html" class="active">研究方向</a>
+      <a href="research.html">研究方向</a>
       <a href="members.html">實驗室成員</a>
       <a href="faculty.html">教授介紹</a>
       <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="graduates.html" class="active">畢業生</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-  <!-- 研究方向 -->
+  <!-- 畢業生 -->
   <section class="page-header">
     <div class="container">
-      <h2 class="section-title">研究方向</h2>
-      <p class="section-subtitle">我們的研究涵蓋以下幾個核心領域</p>
+      <h2 class="section-title">畢業生</h2>
+      <p class="section-subtitle">已畢業的實驗室成員</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <ul class="research-list">
-        <li>Ethics-aware Computing</li>
-        <li>Disinformation</li>
-        <li>Social Network and Computing</li>
-        <li>Cyber Security</li>
-        <li>Future Internet Architecture and Protocols</li>
-        <li>Distributed Computing</li>
-        <li>Operating Systems</li>
-      </ul>
+      <div class="pub-filter" id="gradFilter">
+        <button class="pub-filter-btn active" data-cohort="all">全部</button>
+        <button class="pub-filter-btn" data-cohort="114">114 級</button>
+        <button class="pub-filter-btn" data-cohort="113">113 級</button>
+      </div>
+
+      <div class="card-grid member-grid" id="gradList">
+        <div class="member-card" data-cohort="113">
+          <div class="member-photo">
+            <img src="images/members/chen-weicheng.jpg" alt="陳威成" onerror="this.style.display='none'">
+            <span class="avatar-fallback">陳</span>
+          </div>
+          <div class="member-info">
+            <h4>陳威成</h4>
+            <p class="member-role">碩士</p>
+          </div>
+        </div>
+        <div class="member-card" data-cohort="113">
+          <div class="member-photo">
+            <img src="images/members/zhou-zihao.jpg" alt="周子豪" onerror="this.style.display='none'">
+            <span class="avatar-fallback">周</span>
+          </div>
+          <div class="member-info">
+            <h4>周子豪</h4>
+            <p class="member-role">碩士</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

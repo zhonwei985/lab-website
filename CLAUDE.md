@@ -9,9 +9,11 @@
 ## 檔案結構
 - `index.html` — 首頁：Hero
 - `research.html` — 研究方向獨立頁（條列式呈現 7 個研究領域，`.research-list`）
-- `members.html` — 成員介紹獨立頁（指導教授/博士生/碩士生/專題生卡片）
+- `members.html` — 實驗室成員獨立頁（博士生/碩士生/專題生卡片，不含指導教授
+  與已畢業成員，兩者分別在 `faculty.html`／`graduates.html`）
 - `faculty.html` — 教師個人頁（吳士駿教授完整經歷）
 - `publications.html` — 發表著作獨立頁（年份篩選 + 論文列表）
+- `graduates.html` — 畢業生獨立頁（已畢業成員卡片）
 - `style.css` — 所有樣式統一放這裡，**不使用 inline style**
 - `script.js` — mobile nav toggle、發表著作年份篩選（僅 `publications.html`）
 - `images/members/` — 成員大頭照存放處，檔名對應各成員卡片 `<img>` 的 `src`
@@ -30,9 +32,9 @@
 - 新增教師/成員頁面時可參考 `faculty.html` 的 class 命名重用：
   `.faculty-*`、`.timeline-*`（學經歷）、`.tag-*`（研究領域標籤）、
   `.info-*`（開授課程/指導學生列表）、`.pub-group`（著作分類）。
-- 所有獨立頁面（`faculty.html`/`members.html`/`publications.html`）的導覽列都要
-  互相同步：目前所在頁面的連結加上 `class="active"`（對應 `.site-nav a.active`
-  CSS，底線標示）。
+- 所有獨立頁面（`research.html`/`members.html`/`faculty.html`/
+  `publications.html`/`graduates.html`）的導覽列都要互相同步：目前所在頁面的
+  連結加上 `class="active"`（對應 `.site-nav a.active` CSS，底線標示）。
 
 ## 任務紀錄
 
@@ -476,3 +478,282 @@
   `max-width: 82%`／`margin: 0 auto`；`.member-info` padding 改回
   `20px 22px`；姓名字級改回 1.05rem；身分文字改回 0.85rem；姓氏色塊字級
   改回 2.4rem），回到上一版（3 欄格狀、卡片鋪滿欄位寬度）的大小。
+
+### 2026-09-08：全站頁面加上淡入效果
+- **背景**：使用者要求每個介面（頁面）載入時都要有淡入效果。
+- **改動**：`style.css` 的 `body` 加上 `animation: page-fade-in 0.5s ease;`，
+  搭配新增的 `@keyframes page-fade-in`（`opacity: 0 → 1`）。因為五個頁面
+  （`index.html`/`research.html`/`members.html`/`faculty.html`/
+  `publications.html`）共用同一份 `style.css`，這個改動不用逐頁加 class 或
+  JS，每個頁面載入時 `<body>` 都會自動從透明淡入到不透明。額外加了
+  `@media (prefers-reduced-motion: reduce)` 把動畫關掉，尊重使用者系統上
+  「減少動態效果」的無障礙設定。
+- **驗證方式**：本地 `http.server` 逐頁回傳 200 確認可正常載入；純 CSS
+  `animation`/`@keyframes`，不影響現有 `script.js` 邏輯。
+
+### 2026-09-08：淡入效果改成「內容由上往下依序淡入」
+- **背景**：使用者澄清上一版的整頁淡入（`body` 一次性淡入）不是他要的效果，
+  他要的是頁面裡的內容區塊由上往下依序、慢慢淡入（有先後順序的層疊效果）。
+- **改動**：`style.css`
+  - 拿掉 `body` 上整體的 `page-fade-in` 動畫，改成針對頁面內的結構區塊
+    （`.site-header`、`main` 底下每個直接子層 `<section>`、`.site-footer`）
+    分別套用 `fade-in-down` 動畫（從上方 16px 處、透明，滑入到原本位置、
+    不透明），並用 `animation-delay` 依「頁首 → main 內第 1/2/3/4 個區塊 →
+    頁尾」的順序遞增（0s、0.1s、0.2s、0.3s、0.4s、0.5s），做出由上往下依序
+    淡入的層疊效果。用 `main > *` 選擇器而非針對個別頁面寫死區塊數量，
+    因為每頁 `<main>` 底下的 section 數量不同（`index.html` 只有 1 個、
+    `faculty.html` 有 3 個），這樣可以共用同一組規則。
+  - `prefers-reduced-motion: reduce` 的無障礙覆寫規則比照同步更新（改成
+    關閉這組新的 `animation`，直接顯示 `opacity: 1`）。
+- **驗證方式**：本地 `http.server` 逐頁回傳 200 確認可正常載入；grep 確認
+  `page-fade-in` 沒有殘留引用。
+
+### 2026-09-08：移除頁面載入淡入效果
+- **背景**：使用者決定頁面載入時不要用淡入效果，把前兩次加的動畫整組拿掉。
+- **改動**：`style.css` 移除 `@keyframes fade-in-down`、`.site-header`／
+  `main > *`／`.site-footer` 的 `animation`/`opacity:0` 規則，以及對應的
+  `prefers-reduced-motion` 覆寫（因為沒有動畫了，不需要再關閉它）。頁面載入
+  恢復成一般直接顯示，沒有任何淡入/位移動畫。
+- **附註**：檢查時發現 `faculty.html` 在對話之外被直接修改過——教師簡介區塊
+  從原本的 `<section class="faculty-hero">`（深藍/淺色底特殊樣式）改成一般
+  `<section class="section">` 包 `.faculty-hero-inner`，`page-header` 也换成
+  `page-eyebrow`「Advisor」+ 「指導教授」標題。看起來是刻意的排版調整、
+  HTML 結構仍正確，所以沒有還原；但連動讓 `style.css` 裡的 `.faculty-hero`
+  背景規則變成沒有元素在用的死樣式，之後如果要清理可以留意。
+- **驗證方式**：grep 確認 `fade-in-down`/`page-fade-in` 都沒有殘留引用；本地
+  `http.server` 逐頁回傳 200 確認可正常載入。
+
+### 2026-09-08：成員卡片依精確比例縮到 80%
+- **背景**：使用者拿我先前算出的桌面版卡片基準尺寸（寬/照片高 338.7px、文字區
+  約 95px、總高約 434px），自己算了一份 100%/90%/80%/75%/60%/50% 的等比例縮放
+  對照表，這次明確要求縮到 80%（換算後寬/照片高約 271px、文字區約 76px、總高
+  約 347px）。跟前一次「82% + 沒有完全按比例縮小字級」被反映太小不同，這次
+  嚴格按 0.8 這個縮放係數 (k) 套用到每一個相關數值，確保寬度、照片、文字都是
+  同一個比例縮小，不會有些縮多some縮少導致比例不協調。
+- **改動**：`style.css` 全部乘以 0.8：
+  - `.member-card` 加回 `max-width: 80%; margin: 0 auto;`（80% 是相對於欄寬，
+    在桌面版最大寬度時換算出來就是約 271px，符合使用者的表格）。
+  - `.member-info` padding：`20px 22px` → `16px 17.6px`。
+  - 姓名字級：`1.05rem` → `0.84rem`。
+  - 身分文字字級：`0.85rem` → `0.68rem`；`margin-bottom` 從 10px → 8px。
+  - 無照片時姓氏色塊字級：`2.4rem` → `1.92rem`。
+  - 指導教授卡片（`.member-card.faculty`）維持獨立的 `max-width: 420px`
+    （選擇器優先權更高，不受這次縮放影響）。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html` 標籤正確配對；本地
+  `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：成員卡片改回原樣（取消 80% 縮放）
+- **背景**：使用者決定卡片維持原本 100% 大小，把上一次的 80% 等比例縮放取消。
+- **改動**：`style.css` 全部改回縮放前的數值：`.member-card` 拿掉
+  `max-width: 80%`／`margin: 0 auto`；`.member-info` padding 改回
+  `20px 22px`；姓名字級改回 1.05rem；身分文字字級改回 0.85rem、
+  `margin-bottom` 改回 10px；姓氏色塊字級改回 2.4rem。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html` 標籤正確配對；本地
+  `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：成員卡片縮小到 90%
+- **背景**：使用者這次沒有指定精確比例，只說「縮小一點」。考量到 80% 上次被
+  取消（不確定是嫌小還是單純想比較原樣)，這次先用比較保守的 90%，沿用
+  2026-09-08 稍早驗證過的「等比例縮放」做法（寬度、padding、字級都乘上同一個
+  係數 k，避免只縮寬度導致文字比例失調）。
+- **改動**：`style.css` 全部乘以 0.9：
+  - `.member-card` 加回 `max-width: 90%; margin: 0 auto;`。
+  - `.member-info` padding：`20px 22px` → `18px 19.8px`。
+  - 姓名字級：`1.05rem` → `0.945rem`。
+  - 身分文字字級：`0.85rem` → `0.765rem`；`margin-bottom` 從 10px → 9px。
+  - 無照片時姓氏色塊字級：`2.4rem` → `2.16rem`。
+  - 指導教授卡片維持獨立的 `max-width: 420px`，不受影響。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html` 標籤正確配對；本地
+  `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：成員格線改用 Flexbox，解決縮小後間距不均勻的問題
+- **背景**：使用者傳截圖說縮小後（90%，`max-width:90%; margin:0 auto;` 置中
+  在各自的 Grid 欄位裡）卡片間距看起來鬆散不整齊。原因是「每張卡片各自在自己
+  的 1fr 欄位裡置中」的做法，會讓卡片之間的視覺間距＝（各自的置中留白 × 2 +
+  Grid 本身的 28px gap），跟容器邊緣到第一張卡片的間距（只有一份置中留白）
+  天生不相等，不管怎麼調縮小比例都沒辦法讓兩者一致。跟使用者確認後，選擇
+  「維持縮小、把間距調均勻」而非改欄數或恢復原尺寸。
+- **改動**：`style.css` 把 `.member-grid` 從 `display: grid`（沿用 `.card-grid`
+  的 3 欄設定）改成獨立的 `display: flex; flex-wrap: wrap; justify-content:
+  center; gap: 28px;`；`.member-card` 拿掉 `max-width: 90%; margin: 0 auto;`，
+  改成固定 `flex: 0 1 300px`（基準寬度接近先前 90% 換算出的 304.8px，形狀不變、
+  只是換一種不會造成間距不均的方式達成）。這樣一來相鄰卡片之間、卡片與容器
+  邊緣之間都只吃同一份 `gap: 28px`（`justify-content: center` 讓整排卡片在
+  容器裡置中，兩側留白對稱），視覺節奏一致；而且 Flexbox 的 `flex-wrap` 本來
+  就會隨容器寬度自動換行，不需要再靠 860px/640px 的中斷點手動指定欄數——已把
+  `.member-grid` 從那兩條 media query 規則移除（只留 `.card-grid`，保留給未來
+  可能重新使用格狀排版的地方）。指導教授卡片改成 `flex-basis: 420px`（原本
+  `grid-column` 的邏輯已經不適用，直接給獨立的 flex-basis 達到一樣的固定寬度
+  效果），`max-width`/`margin:0 auto` 保留但在 flex 情境下是無害的冗餘設定。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html` 標籤正確配對；本地
+  `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：成員介紹移除指導教授、卡片改左靠齊
+- **背景**：使用者要求 (1) 把「成員介紹」頁裡的指導教授（吳士駿）整塊移除
+  (2) 底下其他成員的卡片改成靠左對齊（原本先講「向右」，隨即訊息中途更正為
+  「向左」，以更正後的為準）。
+- **改動**：
+  - `members.html`：移除「指導教授」`<h3 class="group-heading">` 與其
+    `card-grid member-grid` 整塊（含吳士駿的照片/描述/連結），第一個分組
+    變成「博士生」；page-header 副標題從「指導教授與研究團隊」改成
+    「研究團隊」（移除已經不存在的指導教授字樣，避免文字跟內容對不上）。
+    教授本人仍有獨立的 `faculty.html` 頁面，導覽列「教授介紹」項目不受影響。
+  - `style.css`：`.member-grid` 的 `justify-content` 從 `center` 改成
+    `flex-start`（靠左）。順手清掉只有「指導教授卡片」在用、現在已經沒有
+    HTML 引用的死樣式：`.member-card.faculty`、`.member-desc`、
+    `.member-link`、`.member-link:hover`。
+- **驗證方式**：grep 確認 `member-card faculty`/`member-desc`/`member-link`
+  在所有 `.html`/`.css` 檔案中都沒有殘留引用；用 Python `html.parser` 檢查
+  五份 HTML 檔案標籤皆正確配對；本地 `http.server` 逐頁回傳 200 確認可正常
+  載入。
+
+### 2026-09-08：成員卡片改回置中（靠左會造成左右留白不對稱）
+- **背景**：使用者反映「靠左」改完後，整體畫面左右留白對不齊。原因是卡片是
+  固定寬度（`flex: 0 1 300px`），一整排通常湊不滿容器全寬（例如 3 張
+  300px 卡片 + 2 條 28px 間距＝956px，容器內距寬度有 1072px，還剩約 116px）；
+  用 `flex-start` 靠左時，這 116px 空隙全部堆在該行的右側，導致每一行卡片
+  左邊只有容器本身的 24px padding、右邊卻多出一大塊留白，看起來左右不對稱。
+  跟使用者確認後（靠左 vs 對稱兩者衝突，使用者選對稱優先），改回置中。
+- **改動**：`style.css` 的 `.member-grid` `justify-content` 從 `flex-start`
+  改回 `center`，讓每一行卡片不管有幾張，多出來的空間平均分配在該行左右兩側，
+  左右留白對稱一致。
+- **驗證方式**：本地 `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：成員照片高度縮短
+- **背景**：使用者覺得照片的「長度」（高度）可以再減少一點。
+- **改動**：`style.css` 的 `.member-photo` 從正方形 `aspect-ratio: 1 / 1`
+  改成 `aspect-ratio: 4 / 3`（寬度不變，高度變成寬度的 75%，比原本矮）。
+- **驗證方式**：本地 `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：「成員介紹」改名「實驗室成員」，新增「畢業生」獨立頁
+- **背景**：使用者要求 (1) 把「成員介紹」這個名稱改成「實驗室成員」
+  (2) 新增一個「畢業生」頁面，把 `members.html` 裡的已畢業成員（陳威成、
+  周子豪）搬過去。
+- **改動**：
+  - 新增 `graduates.html`：結構比照 `members.html`（page-header + 
+    `card-grid member-grid` 卡片），標題「畢業生」，內容是陳威成、周子豪兩張
+    `member-card`（沿用原本的照片路徑、`member-role`「碩士（已畢業）」文字）。
+  - `members.html`：移除「已畢業成員」`<h3 class="group-heading">` 與其卡片
+    整塊；`<title>`／page-header 標題從「成員介紹」改成「實驗室成員」。
+  - 六個頁面（`index.html`/`research.html`/`members.html`/`faculty.html`/
+    `publications.html`/`graduates.html`）的導覽列同步更新：「成員介紹」項目
+    文字改成「實驗室成員」；新增「畢業生」項目（連到 `graduates.html`，放在
+    「發表著作」之後）；`graduates.html` 自己的導覽列「畢業生」項目加
+    `active` 樣式。現在導覽列共六項：首頁／研究方向／實驗室成員／教授介紹／
+    發表著作／畢業生。
+  - `style.css` 未變動——`graduates.html` 完全沿用既有的 `.page-header`／
+    `.member-grid`／`.member-card`／`.member-photo`／`.member-info` 樣式，
+    不需要新增任何 CSS。
+- **驗證方式**：用 Python `html.parser` 檢查六份 HTML 檔案標籤皆正確配對；
+  grep 確認「成員介紹」「已畢業成員」在所有 `.html` 檔案中都沒有殘留引用；
+  逐一比對六個頁面的導覽列連結與 `active` 標示皆一致；本地 `http.server`
+  逐頁回傳 200 確認可正常載入。
+
+### 2026-09-08：畢業生頁加上年級篩選按鈕
+- **背景**：使用者要求 (1) `graduates.html` 加上可點選的年級篩選按鈕「113 級」
+  「114 級」(2) 陳威成、周子豪歸在「113 級」底下 (3) 拿掉他們卡片上的「（已
+  畢業）」描述，只留「碩士」（因為畢業生頁本身的頁面主旨已經表明是已畢業，
+  不需要在每張卡片上重複標示）。
+- **決策**：篩選機制直接沿用 `publications.html` 既有的「年份篩選」模式
+  （`.pub-filter`/`.pub-filter-btn` 樣式 + `data-*` 屬性比對 + `.hidden`
+  隱藏），只是把 `data-year` 換成 `data-cohort`，避免另外設計一套重複的
+  篩選 UI／CSS。多加了「全部」按鈕當預設選項（比照 `publications.html`
+  的慣例），雖然使用者只提到兩個按鈕，但沒有「全部」的話載入頁面時無法
+  一次看到所有畢業生。
+- **改動**：
+  - `graduates.html`：新增 `<div class="pub-filter" id="gradFilter">`（全部/
+    113 級/114 級三個按鈕，`data-cohort` 屬性），卡片容器加上 `id="gradList"`；
+    兩張 `member-card` 都加上 `data-cohort="113"`；`member-role` 文字從
+    「碩士（已畢業）」改成「碩士」。
+  - `style.css`：新增 `.member-card.hidden { display: none; }`（比照既有的
+    `.pub-item.hidden`，篩選時用來隱藏不符合的卡片）。
+  - `script.js`：新增「Graduates cohort filter」區塊，邏輯完全比照上面的
+    「Publication year filter」（`gradFilter`/`gradItems`，用 `data-cohort`
+    比對），一樣做了 `if (gradFilter)` null 檢查，因為只有 `graduates.html`
+    有 `#gradFilter` 這個元素。
+- **驗證方式**：`node --check script.js` 通過語法檢查；用 Python `html.parser`
+  檢查 `graduates.html` 標籤正確配對；本地 `http.server` 回傳 200 確認可正常
+  載入。
+
+### 2026-09-08：畢業生篩選按鈕順序對調
+- **改動**：`graduates.html` 的篩選按鈕順序從「全部/113 級/114 級」改成
+  「全部/114 級/113 級」，`data-cohort` 對應的篩選邏輯不受影響（純粹調換
+  按鈕的顯示順序）。
+- **驗證方式**：本地 `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：實驗室成員頁的博士生／專題生卡片改左靠齊
+- **背景**：使用者要求 `members.html` 裡的「博士生」「專題生」分組（都只有
+  1 位成員）改成左靠齊，而不是像目前這樣單張卡片置中飄在整排中間。這兩組
+  本來就只有 1 張卡片，不會像之前「碩士生」多張卡片時發生的「靠左造成左右
+  留白不對稱」問題（單張卡片靠左跟置中相比，差異只在卡片本身位置，不會有
+  多張卡片之間的間距換算問題），所以直接套用靠左沒有副作用。
+- **決策**：沒有直接改動共用的 `.member-grid`（那樣會連帶影響碩士生／已畢業
+  成員等多張卡片的分組），而是新增一個修飾用的 `.align-left` class，只加在
+  博士生、專題生兩個分組的 `card-grid member-grid` 容器上，其餘分組維持原本
+  的置中設定。
+- **改動**：
+  - `style.css`：新增 `.member-grid.align-left { justify-content: flex-start;
+    }`，覆蓋基礎 `.member-grid` 的 `justify-content: center`。
+  - `members.html`：博士生、專題生的 `<div class="card-grid member-grid">`
+    都加上 `align-left` class。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html` 標籤正確配對；
+  本地 `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：博士生／專題生改跟碩士生第一張卡片對齊（全組統一改左靠齊）
+- **背景**：使用者反映博士生、專題生（上次改的 `align-left`）跟碩士生最左邊
+  的卡片沒有對齊。原因是：碩士生的 `.member-grid` 當時還是 `justify-content:
+  center`，而碩士生 9 人排 3 欄，每排 3 張卡片＋間距只佔約 956px，容器內距
+  寬度有 1072px，即使是「排滿」的一整排也還有約 116px 空隙；用 `center` 時
+  這 116px 平均分配在該排左右兩側，導致碩士生第一張卡片的起始位置本來就不是
+  貼在容器最左邊（大約往右偏 58px），跟已經改成 `flex-start`（起始位置＝0）
+  的博士生／專題生對不齊。
+- **改動**：既然碩士生的 9 人剛好排滿整數倍的 3 欄（3 排都是滿的，不會有
+  「最後一排人數不足、靠左會露出不對稱留白」的問題），把 `justify-content:
+  flex-start` 直接套用到**所有**分組，而不是只套在人數少的分組上：
+  - `style.css`：`.member-grid` 的 `justify-content` 直接從 `center` 改成
+    `flex-start`；移除變成多餘的 `.member-grid.align-left` 修飾規則。
+  - `members.html`：拿掉博士生、專題生 `card-grid member-grid` 上的
+    `align-left` class（基礎規則已經是靠左，不再需要額外修飾）。
+  - 這個改動也會套用到 `graduates.html`（共用同一個 `.member-grid` class），
+    畢業生卡片列也會跟著變成靠左，屬於一致性的附帶效果，不影響功能。
+- **驗證方式**：grep 確認 `align-left` 在所有 `.html`/`.css` 檔案中都沒有
+  殘留引用；用 Python `html.parser` 檢查 `members.html`/`graduates.html`
+  標籤正確配對；本地 `http.server` 回傳 200 確認可正常載入。
+
+### 2026-09-08：改回置中（「跟碩士生對齊」跟「左右對稱」互相衝突）
+- **背景**：改成全體靠左（見上一則紀錄）之後，使用者反映左右留白又不對稱了。
+  說明給使用者聽：卡片是固定寬度，多出來的空間只能「全部堆右邊（靠左但不
+  對稱）」「平均分配左右（對稱但各組人數不同，卡片彼此對不齊）」「卡片自動
+  撐大填滿整行（兩者都要，但單人分組的卡片會被撐得很寬）」三選一，三者無法
+  同時成立。詢問後使用者選擇「維持固定寬度，改回置中」，也就是犧牲「跨組
+  對齊」，優先保留「左右對稱」與卡片固定大小。
+- **改動**：`style.css` 的 `.member-grid` `justify-content` 從 `flex-start`
+  改回 `center`。
+- **驗證方式**：本地 `http.server` 確認 `members.html`/`graduates.html` 皆
+  回傳 200，可正常載入。
+
+### 2026-09-08：改用固定欄位的 CSS Grid，同時解決「對齊」與「對稱」
+- **背景**：使用者更精確地描述需求——不是要卡片貼齊容器最左邊，而是要「博士生」
+  的卡片跟「碩士生」第一張卡片（曾巧瑩）對齊。用 Flexbox 沒辦法同時滿足這個
+  需求跟「左右留白對稱」，因為 Flexbox 的置中/靠左是「每一組各自根據自己組內
+  的項目數量」去計算留白，不同組人數不同、算出來的位置自然不一樣。
+- **決策**：改用「固定 3 欄的 CSS Grid，格線本身用 `width: fit-content` +
+  `margin: 0 auto` 置中」來解決。核心概念：不管某一組實際有幾個成員，
+  `.member-grid` 這個格線容器本身的「外框大小」永遠是同一組固定的 3 欄寬度
+  （由 `grid-template-columns: repeat(3, minmax(0, 300px))` 決定），所以這個
+  外框在容器裡置中的位置，每一組都完全一樣；成員只是照順序填進這個固定格線
+  的第 1、2、3 格，人數不足的組別（博士生、專題生）只會佔用第 1 格，其餘格子
+  空著，但因為外框位置本身沒變，第 1 格（也就是博士生的吳彥廷、碩士生的
+  曾巧瑩、專題生的錢信亦）就會自然對齊在同一個 x 座標，同時外框置中也讓
+  每一組的左右留白維持對稱。
+- **改動**：`style.css`
+  - `.member-grid` 從 `display: flex` 改回 `display: grid`：
+    `grid-template-columns: repeat(3, minmax(0, 300px))`、`width: fit-content`、
+    `max-width: 100%`、`margin: 0 auto`（`gap: 28px` 不變）。
+  - `.member-card` 移除 `flex: 0 1 300px`（改用 Grid 後，卡片寬度由格線欄寬
+    決定，不再需要 flex-basis）。
+  - 響應式斷點：860px 以下欄數從 `repeat(3, ...)` 改成 `repeat(2, minmax(0,
+    300px))`；640px 以下改成單欄 `minmax(0, 300px)`，`minmax(0, 300px)` 讓
+    欄寬在螢幕更窄時可以再往下縮，避免固定 300px 在小螢幕上溢出。
+- **驗證方式**：用 Python `html.parser` 檢查 `members.html`/`graduates.html`
+  標籤正確配對；本地 `http.server` 逐頁回傳 200 確認六個頁面皆可正常載入。
