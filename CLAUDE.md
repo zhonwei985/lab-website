@@ -5,20 +5,31 @@
 - 語言：繁體中文
 - 風格：簡潔學術風，響應式設計
 - 色系：以深藍/白為主（`--color-navy` / `--color-bg`，定義於 `style.css:1-14`）
+- 字型：標題 Noto Serif TC、內文 Noto Sans TC，由各頁 `<head>` 的 Google Fonts
+  `<link>` 載入。**新增頁面時務必一併複製這段 `<link>`**，否則該頁會掉回系統
+  預設字型，跟其他頁面長得不一樣。
 
 ## 檔案結構
-- `index.html` — 首頁：Hero
+- `index.html` — 首頁：Hero + 研究方向摘要（tag pills，內容取自 `research.html`）
 - `research.html` — 研究方向獨立頁（條列式呈現 7 個研究領域，`.research-list`）
 - `members.html` — 實驗室成員獨立頁（博士生/碩士生/專題生卡片，不含指導教授
   與已畢業成員，兩者分別在 `faculty.html`／`graduates.html`）
 - `faculty.html` — 教師個人頁（吳士駿教授完整經歷）
 - `publications.html` — 發表著作獨立頁（年份篩選 + 論文列表）
 - `graduates.html` — 畢業生獨立頁（已畢業成員卡片）
+- `favicon.svg` — 分頁圖示，深藍底 + 金褐色 E（Ethics），純 SVG 不依賴字型
+- `images/network-motif.svg` — 首頁 Hero 背景的節點連線圖，呼應社群網路研究主題；
+  由固定亂數種子的 Python 腳本產生（見 2026-09-10 任務紀錄），不是手繪
 - `style.css` — 所有樣式統一放這裡，**不使用 inline style**
-- `script.js` — mobile nav toggle、發表著作年份篩選（僅 `publications.html`）
+- `script.js` — mobile nav toggle、發表著作年份篩選（僅 `publications.html`）、
+  畢業生年級篩選（僅 `graduates.html`）、捲動進場動畫（全站共用）
 - `images/members/` — 成員大頭照存放處，檔名對應各成員卡片 `<img>` 的 `src`
-  （見任務紀錄「成員頭像加入照片版位」）；目前資料夾是空的，圖片載入失敗時
-  會自動顯示姓氏色塊（`.avatar-fallback`）當備援。
+  （見任務紀錄「成員頭像加入照片版位」）。圖片載入失敗時會自動顯示姓氏色塊
+  （`.avatar-fallback`）當備援，所以缺照片不會壞版。
+  **照片規格：寬高比 4:3**（例如 800×600 或 1200×900）。卡片照片框是
+  `aspect-ratio: 4/3` + `object-fit: cover`，比例不符會被裁切；`object-position:
+  top` 會優先保留畫面上方，因此人臉盡量靠上不會被裁掉。
+  目前只有 `felix-wu.jpg`、`hong-zongwei.jpg` 兩張，其餘成員照片使用者表示之後會補。
 - 聯絡資訊（地址/Email/電話）統一放在每個頁面的 `<footer class="site-footer">`
   （`.footer-contact` class），**沒有獨立的聯絡頁面或聯絡表單**。
 
@@ -27,8 +38,12 @@
 - CSS 一律寫進 `style.css`，不要用 inline style
 
 ## 開發慣例
-- `script.js` 中對頁面專屬元素（`#pubFilter`）的事件綁定都要做 null 檢查，
-  因為並非每個頁面都有這些元素（只有 `publications.html` 有出版年份篩選）。
+- `script.js` 中對頁面專屬元素（`#pubFilter`、`#gradFilter`）的事件綁定都要做
+  null 檢查，因為並非每個頁面都有這些元素（年份篩選只有 `publications.html`、
+  年級篩選只有 `graduates.html`）。
+- 捲動進場動畫的隱藏狀態（`.reveal`）一律由 `script.js` 動態加上，**不要寫進
+  HTML**。這樣沒有 JS、或瀏覽器不支援 `IntersectionObserver` 時，內容會維持
+  正常顯示，不會整頁卡在透明狀態看不見。
 - 新增教師/成員頁面時可參考 `faculty.html` 的 class 命名重用：
   `.faculty-*`、`.timeline-*`（學經歷）、`.tag-*`（研究領域標籤）、
   `.info-*`（開授課程/指導學生列表）、`.pub-group`（著作分類）。
@@ -757,3 +772,114 @@
     欄寬在螢幕更窄時可以再往下縮，避免固定 300px 在小螢幕上溢出。
 - **驗證方式**：用 Python `html.parser` 檢查 `members.html`/`graduates.html`
   標籤正確配對；本地 `http.server` 逐頁回傳 200 確認六個頁面皆可正常載入。
+
+### 2026-09-10：加入捲動進場動畫（區塊淡入上移 + 卡片依序浮現）
+- **背景**：使用者先前明確表示「頁面載入時不要淡入效果」，後來詢問還能加什麼
+  動畫，從我列的選項中挑了「捲動到才觸發」這一類，包含區塊淡入上移與卡片
+  依序浮現兩項。關鍵差異：不是一進站就整頁動一遍，而是捲到那一區才進場。
+- **決策**：
+  - **首屏不動**：`.hero`（首頁）與 `.page-header`（各獨立頁標題區）排除在
+    動畫之外，因為它們一定在第一屏，加動畫就等於又變成「載入時淡入」，
+    正是使用者先前否決的效果。實測 `index.html` 只有 Hero 一個區塊，
+    所以首頁載入時完全靜止。
+  - **隱藏狀態由 JS 加、不寫進 HTML**：`.reveal` 這個「透明 + 下移」的初始
+    狀態是 `script.js` 動態加上去的。若寫死在 HTML，一旦 JS 失效或瀏覽器不
+    支援 `IntersectionObserver`，整頁內容會永遠停在透明狀態、變成空白頁。
+    現在的寫法在那些情況下會直接顯示完整內容。
+  - **有卡片的區塊不整塊淡入**：改成該區塊的 `.group-heading`、`.pub-filter`
+    與每張 `.member-card` 各自進場，否則父層整塊淡入會跟子層卡片的動畫疊在
+    一起，看起來混濁。
+- **改動**：
+  - `style.css`：新增 `.reveal`／`.reveal.is-visible`（透明下移 24px → 歸位）；
+    卡片錯開延遲用 `:nth-child(3n + 2)`／`(3n + 3)` 做出每排由左至右的骨牌
+    效果，並在 860px（2 欄）、640px（單欄）斷點改寫成對應的錯開規則，
+    避免欄數變了但延遲還照 3 欄算；另加 `prefers-reduced-motion` 覆寫當保險。
+  - `script.js`：新增 Scroll reveal 區塊，用 `IntersectionObserver` 在元素進入
+    畫面時加上 `is-visible` 並 `unobserve`（只播一次，捲回去不會重播）。
+    `window.matchMedia` 有做 `typeof` 檢查（見下方驗證，這是實測抓到的問題）。
+- **驗證方式**：在 scratchpad 用 jsdom 實際載入六個頁面並執行 `script.js`，
+  分三組檢查：(A) 正常路徑—`.reveal` 數量與 `observe()` 次數相符、首屏區塊
+  確實被略過（members 14 個目標＝3 個分組標題＋11 張卡片；faculty 6 個＝
+  7 個 section 扣掉標題區；graduates 3 個＝篩選列＋2 張卡片；index 0 個）；
+  (B) 觸發進場後 14 個目標全部拿到 `is-visible` 且全部被 `unobserve`；
+  (C) 降級路徑—移除 `IntersectionObserver` 後，六頁都沒有任何元素卡在隱藏
+  狀態。**這輪驗證抓到一個真的 bug**：原本直接呼叫 `window.matchMedia(...)`，
+  在沒有實作該 API 的環境會拋錯中斷腳本，已加上 `typeof` 檢查後全部通過。
+  另外 `node --check script.js` 通過、本地 `http.server` 六頁皆回傳 200。
+
+### 2026-09-10：美編（字型載入、成員頁配色、視覺層次、收尾細節）
+- **背景**：使用者問「接下來如果要美編可以怎麼美編」，我盤點現況後列出方向，
+  使用者回「你自己發揮」，因此一次做完盤點出的項目。
+- **盤點時發現的關鍵問題：字型從來沒有載入過**。`style.css` 從專案初期就指定
+  `"Noto Serif TC"` / `"Noto Sans TC"`，但六個頁面的 `<head>` 只有 `style.css`
+  一行，沒有任何 Google Fonts `<link>` 或 `@font-face`。也就是說整站的中文字
+  一直是掉回瀏覽器後備字型在顯示，跟設計意圖不同，而且每台電腦看到的還不一樣。
+  這是這輪影響最大的一項。
+- **改動**：
+  - **字型**：六頁 `<head>` 都加上 Google Fonts 的 `preconnect` + `<link>`，
+    載入 Noto Sans TC 400/500/600/700 與 Noto Serif TC 600/700（對應 CSS 裡
+    實際用到的字重），並用 `display=swap` 避免字型載入時文字空白。
+  - **成員照片備援改為淺色**：`.member-photo` 底色從實心 `--color-navy` 改成
+    淺米色漸層，姓氏文字從白色改成低透明度深藍。原因是 13 張成員卡只有 1 張
+    有真實照片，深藍底會讓整個成員頁變成一片很重的深色方塊牆；改成淺色後
+    看起來像刻意的留白，而不是「圖片載入失敗」。
+  - **視覺層次**：`.member-card` 加上細微雙層陰影；`.member-grid
+    .member-card:hover` 加上上浮 4px + 陰影加深 + 邊框變深，照片同時緩慢放大
+    到 1.04 倍。**hover 的選擇器權重刻意寫成 `.member-grid .member-card:hover`
+    (0,3,0)**，因為捲動進場的 `.reveal.is-visible` (0,2,0) 也在設 `transform`，
+    權重不夠的話 hover 位移會被蓋掉。
+  - **accent 色**：`.page-header .section-title` 與各 `.section` 的
+    `.section-title` 底下加上金褐色短線 `::after`，讓 accent 色不只出現在
+    按鈕和連結。
+  - **首頁補內容**：`index.html` 原本只有 Hero，捲下去直接就是頁尾。加上
+    「研究方向」摘要區，用既有的 `.tag-grid`/`.tag-pill` class 呈現 7 個研究
+    領域 + 「查看完整研究方向」按鈕。**內容完全取自 `research.html` 既有資料，
+    沒有杜撰任何新文案**；使用者先前說首頁內容待定，這一區是暫時的預覽，
+    要換掉只要刪掉那個 `<section>` 即可。新增 `.section-actions` 置中按鈕。
+  - **收尾細節**：新增 `favicon.svg`（深藍圓角底 + 金褐色 E，用 `<rect>` 畫成
+    不依賴字型）；六頁各自加上對應內容的 `meta description`。
+  - `prefers-reduced-motion` 覆寫一併擴充，把新的卡片 hover 位移與照片縮放
+    也關掉。
+- **驗證方式**：
+  - `curl` 實際打 Google Fonts URL，回傳 HTTP 200、內含 6 條 `@font-face`
+    （Sans 4 個字重 + Serif 2 個字重），確認家族名與字重參數沒寫錯。
+  - 用 Python `xml.dom.minidom` 解析 `favicon.svg` 確認是合法 XML。
+  - 用 Python `html.parser` 檢查六份 HTML 標籤皆正確配對。
+  - 重跑 scratchpad 的 jsdom 捲動進場測試：首頁因為多了新區塊，進場目標從 0
+    變成 1（Hero 仍正確略過），其餘頁面數量不變，觸發後全部顯示、降級路徑
+    也沒有元素卡在隱藏狀態。
+  - 本地 `http.server` 六頁與 `favicon.svg` 皆回傳 200。
+
+### 2026-09-10：強化識別度（網路圖 motif、英文小標、編號排版、頁尾）
+- **背景**：使用者問「還有什麼可以優化讓網站更有特色」。我盤點後指出網站雖然
+  乾淨但像通用學術模板，缺少「這一間實驗室」的識別；使用者回「都做」。
+- **改動**：
+  - **首頁 Hero 加上節點連線圖**（最主要的識別元素）。實驗室研究社群網路分析
+    與假訊息傳播，節點連線圖是這個主題最鮮明的視覺符號。用 Python 腳本產生
+    `images/network-motif.svg`：6 個群集共 36 個節點，每個節點連到最近的 2 個
+    鄰居再加 7 條跨群連線，看起來像自然的社群網路而不是規則格線。**腳本用固定
+    亂數種子 20260910**，所以要重新產生也會得到同一張圖。不透明度直接烤進
+    SVG（線 0.10、節點 0.18、金褐節點 0.55），CSS 端只負責疊在漸層之上。
+  - **英文小標擴充到每一頁**。`page-eyebrow`（斜體襯線）原本只有 `faculty.html`
+    的「Advisor」在用，是全站最有個性卻被埋起來的細節。現在
+    `research.html`/`members.html`/`publications.html`/`graduates.html` 分別
+    加上 Research／Members／Publications／Alumni。
+  - **實驗室成員頁改成交替底色**。原本 3 個分組全擠在同一個白色 `.section` 裡，
+    長頁面顯得平。拆成 3 個獨立 section，依序白、米白、白，讓每個學制成為
+    視覺上的獨立區塊。
+  - **研究方向改成 01–07 編號**。`.research-list` 用 CSS counter
+    (`decimal-leading-zero`) 把原本的小圓點換成大號金褐襯線編號，項目高度
+    加大並改用 flex 垂直置中。
+  - **著作年份放大**。`.pub-year` 從 1.05rem 放大到 1.7rem 襯線大字、欄寬加寬，
+    做出學術刊物的編輯感。
+  - **頁尾升級**。原本只有聯絡資訊加版權，現在加上大字襯線的實驗室名稱、
+    金褐色英文名、六個頁面的簡易導覽、分隔線，並把版權文字獨立成
+    `.footer-copy` 縮小淡化；`.site-footer` 上下留白從 26px 加大到 52/30px。
+- **未做**：`research.html`/`publications.html`/`graduates.html` 各自只有一個
+  內容區塊，沒有可交替的對象，所以沒有套用交替底色。
+- **驗證方式**：Python `xml.dom.minidom` 確認兩個 SVG 皆為合法 XML；
+  `html.parser` 確認六份 HTML 標籤配對；逐頁列出 eyebrow 與 section class
+  確認小標與交替底色都套到正確位置；重跑 jsdom 捲動進場測試，`members.html`
+  拆成 3 個 section 後進場目標仍是 14 個（3 個分組標題 + 11 張卡片），
+  觸發後全部顯示、降級路徑無元素卡住；本地 `http.server` 六頁與兩個 SVG
+  皆回傳 200。
