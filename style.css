@@ -68,7 +68,13 @@ ul {
   align-items: center;
   justify-content: space-between;
   min-height: 68px;
-  padding: 10px 0;
+  /* 只設上下 padding（用 longhand，不要寫 shorthand `padding: 10px 0`）：
+     這個 div 同時掛 .container 跟 .header-inner 兩個 class，若用 shorthand
+     會把 .container 的左右 24px padding 一併蓋成 0，導覽列在 640–860px
+     （手機版漢堡選單出現前）會整個貼齊螢幕邊緣，RWD 測試在 768px 寬度下
+     截圖到「畢業生」被切齊邊界的畫面，就是這裡造成的 */
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .logo {
@@ -368,7 +374,10 @@ ul {
   z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain 而非 cover：許多成員照片是直式 3:4，跟卡片 4:3 的橫式照片框比例不同，
+     cover 會裁掉大半張臉；contain 讓照片整張完整顯示（直式照片會兩側留白），
+     留白處露出底下 .member-photo 原本就有的淺色漸層背景，不會顯得突兀 */
+  object-fit: contain;
   object-position: top;
   transition: transform 0.5s ease;
 }
