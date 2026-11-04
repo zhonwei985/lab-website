@@ -3,30 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>畢業生 | 倫理計算實驗室</title>
+<title data-en="Alumni | Ethics-aware Computing Lab">畢業生 | 倫理計算實驗室</title>
 <meta name="description" content="倫理計算實驗室歷屆畢業生，可依畢業年級篩選。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css" id="themeStylesheet">
+<script src="theme.js"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+    <a href="index.html" class="logo"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="logo-en" data-en="NCKU · 倫理計算實驗室">NCKU · Ethics-aware Computing Lab</span></a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" class="active" data-en="Alumni">畢業生</a>
+    </nav>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English" data-en="中文" data-en-aria-label="切換為中文" hidden>EN</button>
+    <button class="theme-toggle" id="themeToggle" type="button" hidden>終端機版</button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" data-en-aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html" class="active">畢業生</a>
-    </nav>
   </div>
 </header>
 
@@ -35,42 +38,44 @@
   <!-- 畢業生 -->
   <section class="page-header">
     <div class="container">
-      <p class="page-eyebrow">Alumni</p>
-      <h2 class="section-title">畢業生</h2>
-      <p class="section-subtitle">已畢業的實驗室成員</p>
+      <p class="page-eyebrow eyebrow-classic">Alumni</p>
+      <p class="page-eyebrow prompt-line">ls ~/alumni</p>
+      <h2 class="section-title" data-en="Alumni">畢業生</h2>
+      <p class="section-subtitle" data-en="Former lab members">已畢業的實驗室成員</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="pub-filter" id="gradFilter">
-        <button class="pub-filter-btn active" data-cohort="all">全部</button>
-        <button class="pub-filter-btn" data-cohort="114">114 級</button>
-        <button class="pub-filter-btn" data-cohort="113">113 級</button>
+        <button class="pub-filter-btn active" data-cohort="all" data-en="All">全部</button>
+        <button class="pub-filter-btn" data-cohort="114" data-en="Class of 2025">114 級</button>
+        <button class="pub-filter-btn" data-cohort="113" data-en="Class of 2024">113 級</button>
       </div>
 
       <div class="card-grid member-grid" id="gradList">
-        <div class="member-card" data-cohort="113">
+        <div class="member-card" data-cohort="114">
           <div class="member-photo">
             <img src="images/members/chen-weicheng.jpg" alt="陳威成" onerror="this.style.display='none'">
             <span class="avatar-fallback">陳</span>
           </div>
           <div class="member-info">
             <h4>陳威成</h4>
-            <p class="member-role">碩士</p>
+            <p class="member-role" data-en="M.S.">碩士</p>
           </div>
         </div>
-        <div class="member-card" data-cohort="113">
+        <div class="member-card" data-cohort="114">
           <div class="member-photo">
             <img src="images/members/zhou-zihao.jpg" alt="周子豪" onerror="this.style.display='none'">
             <span class="avatar-fallback">周</span>
           </div>
           <div class="member-info">
             <h4>周子豪</h4>
-            <p class="member-role">碩士</p>
+            <p class="member-role" data-en="M.S.">碩士</p>
           </div>
         </div>
       </div>
+      <p class="filter-empty" id="gradEmpty" data-en="No alumni in this class yet" hidden>此級別目前沒有畢業生</p>
     </div>
   </section>
 
@@ -78,22 +83,23 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-brand">倫理計算實驗室<span>Ethics-aware Computing Lab</span></p>
+    <p class="footer-brand"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="footer-brand-en" data-en="倫理計算實驗室">Ethics-aware Computing Lab</span></p>
     <nav class="footer-nav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
     </nav>
     <div class="footer-divider"></div>
     <ul class="footer-contact">
-      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
-      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
-      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+      <li><strong data-en="Address">地址</strong><span data-en="R96213, 2F, Qiduan Building, National Cheng Kung University">成功大學起端館 2樓 R96213</span></li>
+      <li><strong>Email</strong><span></span></li>
+      <li><strong data-en="Phone">電話</strong><span>06-2757575 ext.62400-3135</span></li>
     </ul>
-    <p class="footer-copy">&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> <span data-en="Ethics-aware Computing Lab, National Cheng Kung University. All rights reserved.">倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</span></p>
+    <button class="terminal-egg" id="terminalEgg" type="button" aria-label="切換為終端機版面" data-en-aria-label="Switch to terminal layout" hidden>&gt;_</button>
   </div>
 </footer>
 

@@ -3,30 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>實驗室成員 | 倫理計算實驗室</title>
+<title data-en="Members | Ethics-aware Computing Lab">實驗室成員 | 倫理計算實驗室</title>
 <meta name="description" content="倫理計算實驗室的研究團隊成員，包含博士生與碩士生。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css" id="themeStylesheet">
+<script src="theme.js"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+    <a href="index.html" class="logo"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="logo-en" data-en="NCKU · 倫理計算實驗室">NCKU · Ethics-aware Computing Lab</span></a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" class="active" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
+    </nav>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English" data-en="中文" data-en-aria-label="切換為中文" hidden>EN</button>
+    <button class="theme-toggle" id="themeToggle" type="button" hidden>終端機版</button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" data-en-aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html" class="active">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
-    </nav>
   </div>
 </header>
 
@@ -35,15 +38,16 @@
   <!-- 實驗室成員 -->
   <section class="page-header">
     <div class="container">
-      <p class="page-eyebrow">Members</p>
-      <h2 class="section-title">實驗室成員</h2>
-      <p class="section-subtitle">研究團隊</p>
+      <p class="page-eyebrow eyebrow-classic">Members</p>
+      <p class="page-eyebrow prompt-line">ls ~/members</p>
+      <h2 class="section-title" data-en="Members">實驗室成員</h2>
+      <p class="section-subtitle" data-en="Research team">研究團隊</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h3 class="group-heading">博士生</h3>
+      <h3 class="group-heading" data-en="Ph.D. Students">博士生</h3>
       <div class="card-grid member-grid">
         <div class="member-card">
           <div class="member-photo">
@@ -52,7 +56,17 @@
           </div>
           <div class="member-info">
             <h4>吳彥廷</h4>
-            <p class="member-role">博士生</p>
+            <p class="member-role" data-en="Ph.D. Student">博士生</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/cai-yuanting.jpg" alt="蔡元珽" onerror="this.style.display='none'">
+            <span class="avatar-fallback">蔡</span>
+          </div>
+          <div class="member-info">
+            <h4>蔡元珽</h4>
+            <p class="member-role" data-en="Ph.D. Student">博士生</p>
           </div>
         </div>
       </div>
@@ -61,7 +75,7 @@
 
   <section class="section section-alt">
     <div class="container">
-      <h3 class="group-heading">碩士生</h3>
+      <h3 class="group-heading" data-en="M.S. Students">碩士生</h3>
       <div class="card-grid member-grid">
         <div class="member-card">
           <div class="member-photo">
@@ -70,7 +84,7 @@
           </div>
           <div class="member-info">
             <h4>曾巧瑩</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -80,7 +94,7 @@
           </div>
           <div class="member-info">
             <h4>林俊穎</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -90,7 +104,7 @@
           </div>
           <div class="member-info">
             <h4>江列騏</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -100,7 +114,7 @@
           </div>
           <div class="member-info">
             <h4>洪宗緯</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -110,7 +124,7 @@
           </div>
           <div class="member-info">
             <h4>林芷翊</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -120,7 +134,7 @@
           </div>
           <div class="member-info">
             <h4>藍璟儀</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -130,7 +144,7 @@
           </div>
           <div class="member-info">
             <h4>陳貿群</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -140,7 +154,7 @@
           </div>
           <div class="member-info">
             <h4>邢益城</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
@@ -150,27 +164,47 @@
           </div>
           <div class="member-info">
             <h4>吳文朕</h4>
-            <p class="member-role">碩士生(碩二)</p>
+            <p class="member-role" data-en="M.S. Student (Year 2)">碩士生(碩二)</p>
           </div>
         </div>
         <div class="member-card">
           <div class="member-photo">
-            <img src="images/members/qian-xinyi.jpg" alt="錢信亦" onerror="this.style.display='none'">
-            <span class="avatar-fallback">錢</span>
+            <img src="images/members/liao-yuxiang.jpg" alt="廖昱翔" onerror="this.style.display='none'">
+            <span class="avatar-fallback">廖</span>
           </div>
           <div class="member-info">
-            <h4>錢信亦</h4>
-            <p class="member-role">碩士生(碩一)</p>
+            <h4>廖昱翔</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
           </div>
         </div>
         <div class="member-card">
           <div class="member-photo">
-            <img src="images/members/lin-yongzhi.jpg" alt="林詠智" onerror="this.style.display='none'">
-            <span class="avatar-fallback">林</span>
+            <img src="images/members/xie-zhongting.jpg" alt="謝忠廷" onerror="this.style.display='none'">
+            <span class="avatar-fallback">謝</span>
           </div>
           <div class="member-info">
-            <h4>林詠智</h4>
-            <p class="member-role">碩士生(碩一)</p>
+            <h4>謝忠廷</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/lu-kechen.jpg" alt="盧可宸" onerror="this.style.display='none'">
+            <span class="avatar-fallback">盧</span>
+          </div>
+          <div class="member-info">
+            <h4>盧可宸</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/chen-tong.jpg" alt="陳彤" onerror="this.style.display='none'">
+            <span class="avatar-fallback">陳</span>
+          </div>
+          <div class="member-info">
+            <h4>陳彤</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
           </div>
         </div>
         <div class="member-card">
@@ -180,7 +214,37 @@
           </div>
           <div class="member-info">
             <h4>黃姿淯</h4>
-            <p class="member-role">碩士生(碩一)</p>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/yang-wanting.jpg" alt="楊婉渟" onerror="this.style.display='none'">
+            <span class="avatar-fallback">楊</span>
+          </div>
+          <div class="member-info">
+            <h4>楊婉渟</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/lin-caiwen.jpg" alt="林采玟" onerror="this.style.display='none'">
+            <span class="avatar-fallback">林</span>
+          </div>
+          <div class="member-info">
+            <h4>林采玟</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/qian-xinyi.jpg" alt="錢信亦" onerror="this.style.display='none'">
+            <span class="avatar-fallback">錢</span>
+          </div>
+          <div class="member-info">
+            <h4>錢信亦</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
           </div>
         </div>
         <div class="member-card">
@@ -190,7 +254,105 @@
           </div>
           <div class="member-info">
             <h4>張家銓</h4>
-            <p class="member-role">碩士生(碩一)</p>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/lin-yongzhi.jpg" alt="林詠智" onerror="this.style.display='none'">
+            <span class="avatar-fallback">林</span>
+          </div>
+          <div class="member-info">
+            <h4>林詠智</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/huang-chengrui.jpg" alt="黃程睿" onerror="this.style.display='none'">
+            <span class="avatar-fallback">黃</span>
+          </div>
+          <div class="member-info">
+            <h4>黃程睿</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/armin.jpg" alt="Armin" onerror="this.style.display='none'">
+            <span class="avatar-fallback">A</span>
+          </div>
+          <div class="member-info">
+            <h4>Armin</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/zhang-tingwei.jpg" alt="張庭維" onerror="this.style.display='none'">
+            <span class="avatar-fallback">張</span>
+          </div>
+          <div class="member-info">
+            <h4>張庭維</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/zheng-bingheng.jpg" alt="鄭秉恒" onerror="this.style.display='none'">
+            <span class="avatar-fallback">鄭</span>
+          </div>
+          <div class="member-info">
+            <h4>鄭秉恒</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/he-weizhan.jpg" alt="何維展" onerror="this.style.display='none'">
+            <span class="avatar-fallback">何</span>
+          </div>
+          <div class="member-info">
+            <h4>何維展</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/yu-peicheng.jpg" alt="余沛承" onerror="this.style.display='none'">
+            <span class="avatar-fallback">余</span>
+          </div>
+          <div class="member-info">
+            <h4>余沛承</h4>
+            <p class="member-role" data-en="M.S. Student (Year 1)">碩士生(碩一)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h3 class="group-heading" data-en="Undergraduate Researchers">專題生</h3>
+      <div class="card-grid member-grid">
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/wang-chenan.jpg" alt="王晨安" onerror="this.style.display='none'">
+            <span class="avatar-fallback">王</span>
+          </div>
+          <div class="member-info">
+            <h4>王晨安</h4>
+            <p class="member-role" data-en="Undergraduate Researcher">專題生</p>
+          </div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo">
+            <img src="images/members/li-qi.jpg" alt="李琦" onerror="this.style.display='none'">
+            <span class="avatar-fallback">李</span>
+          </div>
+          <div class="member-info">
+            <h4>李琦</h4>
+            <p class="member-role" data-en="Undergraduate Researcher">專題生</p>
           </div>
         </div>
       </div>
@@ -201,22 +363,23 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-brand">倫理計算實驗室<span>Ethics-aware Computing Lab</span></p>
+    <p class="footer-brand"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="footer-brand-en" data-en="倫理計算實驗室">Ethics-aware Computing Lab</span></p>
     <nav class="footer-nav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
     </nav>
     <div class="footer-divider"></div>
     <ul class="footer-contact">
-      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
-      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
-      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+      <li><strong data-en="Address">地址</strong><span data-en="R96213, 2F, Qiduan Building, National Cheng Kung University">成功大學起端館 2樓 R96213</span></li>
+      <li><strong>Email</strong><span></span></li>
+      <li><strong data-en="Phone">電話</strong><span>06-2757575 ext.62400-3135</span></li>
     </ul>
-    <p class="footer-copy">&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> <span data-en="Ethics-aware Computing Lab, National Cheng Kung University. All rights reserved.">倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</span></p>
+    <button class="terminal-egg" id="terminalEgg" type="button" aria-label="切換為終端機版面" data-en-aria-label="Switch to terminal layout" hidden>&gt;_</button>
   </div>
 </footer>
 

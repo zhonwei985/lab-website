@@ -3,30 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>倫理計算實驗室 | Ethics-aware Computing Lab</title>
+<title data-en="Ethics-aware Computing Lab | NCKU">倫理計算實驗室 | Ethics-aware Computing Lab</title>
 <meta name="description" content="國立成功大學電機工程學系倫理計算實驗室（Ethics-aware Computing Lab），研究領域涵蓋倫理計算、假訊息偵測、社群網路分析與資訊安全。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css" id="themeStylesheet">
+<script src="theme.js"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="#hero" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+    <a href="#hero" class="logo"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="logo-en" data-en="NCKU · 倫理計算實驗室">NCKU · Ethics-aware Computing Lab</span></a>
+    <nav class="site-nav" id="siteNav">
+      <a href="#hero" class="active" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
+    </nav>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English" data-en="中文" data-en-aria-label="切換為中文" hidden>EN</button>
+    <button class="theme-toggle" id="themeToggle" type="button" hidden>終端機版</button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" data-en-aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="#hero" class="active">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
-    </nav>
   </div>
 </header>
 
@@ -35,16 +38,27 @@
   <!-- Hero -->
   <section id="hero" class="hero">
     <div class="container hero-inner">
-      <p class="hero-eyebrow">National Cheng Kung University · Dept. of Electrical Engineering</p>
-      <h1>倫理計算實驗室</h1>
-      <h2>Ethics-aware Computing Lab</h2>
-      <p class="hero-desc">
-        我們以倫理計算(Ethics-aware Computing)為核心，延伸至假訊息偵測、社群網路分析、
-        資訊安全、未來網路架構與協定、分散式系統與作業系統等領域，致力於打造兼顧倫理、
-        安全與韌性的智慧運算環境。
-      </p>
-      <div class="hero-actions">
-        <a href="research.html" class="btn btn-primary">了解研究方向</a>
+      <div class="hero-window">
+        <div class="window-bar"><span>guest@eclab: ~</span><span>zsh</span></div>
+        <div class="hero-window-body">
+          <p class="prompt-line">cat ~/about.txt</p>
+          <pre class="hero-ascii" aria-hidden="true"> _____  _____  _   _  ___   ____  ____
+| ____||_   _|| | | ||_ _| / ___|/ ___|
+|  _|    | |  | |_| | | | | |    \___ \
+| |___   | |  |  _  | | | | |___  ___) |
+|_____|  |_|  |_| |_||___| \____||____/</pre>
+          <p class="hero-eyebrow">National Cheng Kung University · Dept. of Electrical Engineering</p>
+          <h1 id="heroTitle" data-en="Ethics-aware Computing Lab">倫理計算實驗室</h1>
+          <h2>Ethics-aware Computing Lab</h2>
+          <p class="hero-desc" data-en="Centered on ethics-aware computing, our research extends to disinformation detection, social network analysis, cyber security, future Internet architecture and protocols, and distributed and operating systems, building intelligent computing environments that are ethical, secure, and resilient.">
+            我們以倫理計算(Ethics-aware Computing)為核心，延伸至假訊息偵測、社群網路分析、
+            資訊安全、未來網路架構與協定、分散式系統與作業系統等領域，致力於打造兼顧倫理、
+            安全與韌性的智慧運算環境。
+          </p>
+          <div class="hero-actions">
+            <a href="research.html" class="btn btn-primary" data-en="Explore our research">了解研究方向</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -52,7 +66,7 @@
   <!-- 研究方向摘要：內容取自 research.html，僅作首頁預覽 -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">研究方向</h2>
+      <h2 class="section-title" data-en="Research">研究方向</h2>
       <div class="tag-grid">
         <span class="tag-pill">Ethics-aware Computing</span>
         <span class="tag-pill">Disinformation</span>
@@ -63,7 +77,7 @@
         <span class="tag-pill">Operating Systems</span>
       </div>
       <div class="section-actions">
-        <a href="research.html" class="btn btn-primary">查看完整研究方向</a>
+        <a href="research.html" class="btn btn-primary" data-en="View all research areas">查看完整研究方向</a>
       </div>
     </div>
   </section>
@@ -72,22 +86,23 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-brand">倫理計算實驗室<span>Ethics-aware Computing Lab</span></p>
+    <p class="footer-brand"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="footer-brand-en" data-en="倫理計算實驗室">Ethics-aware Computing Lab</span></p>
     <nav class="footer-nav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
     </nav>
     <div class="footer-divider"></div>
     <ul class="footer-contact">
-      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
-      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
-      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+      <li><strong data-en="Address">地址</strong><span data-en="R96213, 2F, Qiduan Building, National Cheng Kung University">成功大學起端館 2樓 R96213</span></li>
+      <li><strong>Email</strong><span></span></li>
+      <li><strong data-en="Phone">電話</strong><span>06-2757575 ext.62400-3135</span></li>
     </ul>
-    <p class="footer-copy">&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> <span data-en="Ethics-aware Computing Lab, National Cheng Kung University. All rights reserved.">倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</span></p>
+    <button class="terminal-egg" id="terminalEgg" type="button" aria-label="切換為終端機版面" data-en-aria-label="Switch to terminal layout" hidden>&gt;_</button>
   </div>
 </footer>
 

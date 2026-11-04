@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [master]
 
+# CI 只需要讀取程式碼，限制 GITHUB_TOKEN 為唯讀
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest

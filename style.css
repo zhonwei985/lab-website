@@ -99,10 +99,12 @@ ul {
 
 .site-nav {
   display: flex;
-  gap: 32px;
+  gap: 22px; /* 原本 32px；多了語言／版面兩顆按鈕後，32px 會讓頁首超出 1120px 容器 */
+  margin-left: auto; /* 導覽列與右側按鈕一起靠右 */
 }
 
 .site-nav a {
+  white-space: nowrap;
   font-size: 0.95rem;
   color: #dfe4ec;
   padding: 6px 0;
@@ -139,6 +141,48 @@ ul {
   width: 100%;
   background: #fff;
   transition: transform 0.2s, opacity 0.2s;
+}
+
+/* 中英切換、版面切換按鈕：HTML 預設 hidden，由 script.js 拿掉；沒有 JS 時不顯示 */
+.lang-toggle,
+.theme-toggle {
+  flex: 0 0 auto;
+  margin-left: 16px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--radius);
+  background: transparent;
+  color: #dfe4ec;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+/* 經典版不在頁首放版面切換按鈕，入口藏在頁尾的 .terminal-egg */
+.theme-toggle {
+  display: none;
+}
+
+.lang-toggle[hidden],
+.theme-toggle[hidden] {
+  display: none;
+}
+
+/* 只在有滑鼠的裝置套用 hover，避免觸控裝置點過後樣式黏住 */
+@media (hover: hover) {
+  .lang-toggle:hover,
+  .theme-toggle:hover {
+    color: #fff;
+    border-color: var(--color-accent);
+  }
+}
+
+/* 終端機版專屬的元素（視窗標題列、指令列、ASCII banner），經典版不顯示 */
+.window-bar,
+.prompt-line,
+.hero-ascii {
+  display: none;
 }
 
 /* Hero */
@@ -727,7 +771,7 @@ ul {
   color: #fff;
 }
 
-.footer-brand span {
+.footer-brand-en {
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 500;
@@ -786,6 +830,97 @@ ul {
 
 .footer-contact span {
   color: #b9c2d0;
+}
+
+/* 終端機版的彩蛋入口：頁尾右下角的「>_」，平常幾乎看不見，滑過／鍵盤聚焦才亮起來 */
+.site-footer {
+  position: relative;
+}
+
+.terminal-egg {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.terminal-egg[hidden] {
+  display: none;
+}
+
+.terminal-egg:focus-visible {
+  color: #33ff00;
+  outline: 1px solid #33ff00;
+}
+
+@media (hover: hover) {
+  .terminal-egg:hover {
+    color: #33ff00;
+  }
+
+  .terminal-egg:hover::after {
+    content: " ./terminal";
+  }
+}
+
+/* 切到終端機版時的開機畫面（script.js 動態加上，換好樣式表就移除） */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 32px 24px;
+  background: #0a0a0a;
+  color: #33ff00;
+  /* JetBrains Mono 沒有中文字，中文開機訊息要退到 Noto Sans TC，否則會變成方框 */
+  font-family: "JetBrains Mono", "Noto Sans TC", monospace;
+  font-size: 0.9rem;
+  text-shadow: 0 0 6px rgba(51, 255, 0, 0.5);
+  animation: crt-on 0.25s ease-out;
+}
+
+.boot-screen p {
+  margin: 0 0 6px;
+}
+
+.boot-screen p:last-child::after {
+  content: "_";
+  animation: boot-blink 1s steps(1) infinite;
+}
+
+/* 映像管開機：先是一條亮線，再往上下展開 */
+@keyframes crt-on {
+  from {
+    transform: scaleY(0.005);
+    filter: brightness(3);
+  }
+
+  to {
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes boot-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 篩選後 0 筆時的提示（graduates.html） */
+.filter-empty {
+  margin: 0;
+  padding: 48px 0;
+  text-align: center;
+  color: var(--color-text-muted);
 }
 
 /* 捲動進場動畫：.reveal 由 script.js 加上，沒有 JS 時內容維持正常顯示 */
@@ -851,9 +986,37 @@ ul {
   }
 }
 
-@media (max-width: 640px) {
+/* 導覽列收合成漢堡選單的斷點。實測整排頁首（logo＋6 個導覽＋語言／版面按鈕＋容器內距）
+   中英文都約需 1070px，1100px 以下就收合，否則導覽項目會被擠到換行或撐出橫向捲動 */
+@media (max-width: 1100px) {
+  /* 觸控裝置上篩選按鈕至少 40px 高，手指才點得準 */
+  .pub-filter-btn {
+    min-height: 40px;
+  }
+
+  /* 手機／平板上 logo 英文與頁尾英文名放大到 12px，原本約 11px 在小螢幕上太難讀 */
+  .logo-en,
+  .footer-brand-en {
+    font-size: 0.75rem;
+  }
+
+  /* 觸控裝置上的頁首按鈕至少 40px，手指才點得準 */
   .nav-toggle {
     display: flex;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    padding: 0 8px;
+    margin-left: 10px;
+  }
+
+  .lang-toggle,
+  .theme-toggle {
+    min-height: 40px;
+  }
+
+  .lang-toggle {
+    margin-left: auto;
   }
 
   .site-nav {
@@ -871,7 +1034,7 @@ ul {
   }
 
   .site-nav.open {
-    max-height: 260px;
+    max-height: 360px;
   }
 
   .site-nav a {
@@ -883,6 +1046,19 @@ ul {
   .site-nav a:hover,
   .site-nav a.active {
     color: var(--color-navy);
+  }
+}
+
+@media (max-width: 640px) {
+  /* 開機訊息英文最長約 42 個字元，手機寬度要縮小字級才不會換行、[OK] 才對得齊 */
+  .boot-screen {
+    padding: 24px 16px;
+    font-size: 0.68rem;
+  }
+
+  /* 留位置給右下角的 >_，避免跟置中的版權文字重疊 */
+  .site-footer {
+    padding-bottom: 56px;
   }
 
   .hero {

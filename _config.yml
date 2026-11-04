@@ -1,0 +1,4 @@
+# GitHub Pages（Jekyll）設定：CLAUDE.md 是內部開發紀錄，不發布到網站上
+# （GitHub repo 裡仍看得到）
+exclude:
+  - CLAUDE.md

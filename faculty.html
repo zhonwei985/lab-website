@@ -3,30 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>吳士駿 教授 | 倫理計算實驗室</title>
+<title data-en="Prof. S. Felix Wu | Ethics-aware Computing Lab">吳士駿 教授 | 倫理計算實驗室</title>
 <meta name="description" content="指導教授吳士駿（S. Felix Wu）的學經歷、研究領域、著作與開授課程。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css" id="themeStylesheet">
+<script src="theme.js"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+    <a href="index.html" class="logo"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="logo-en" data-en="NCKU · 倫理計算實驗室">NCKU · Ethics-aware Computing Lab</span></a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" class="active" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
+    </nav>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English" data-en="中文" data-en-aria-label="切換為中文" hidden>EN</button>
+    <button class="theme-toggle" id="themeToggle" type="button" hidden>終端機版</button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" data-en-aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html" class="active">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
-    </nav>
   </div>
 </header>
 
@@ -35,21 +38,22 @@
   <!-- 教師簡介 -->
   <section class="page-header faculty-header">
     <div class="container">
-      <p class="page-eyebrow">Advisor</p>
+      <p class="page-eyebrow eyebrow-classic">Advisor</p>
+      <p class="page-eyebrow prompt-line">finger sfelixwu</p>
       <div class="faculty-hero-inner">
         <div class="faculty-avatar">
           <img src="images/members/felix-wu.jpg" alt="吳士駿" onerror="this.style.display='none'">
           <span class="avatar-fallback">吳</span>
         </div>
         <div class="faculty-hero-body">
-          <h1>吳士駿 教授</h1>
-          <p class="faculty-title">國立成功大學電機工程學系 · 電機資訊學院院長</p>
+          <h1 data-en="Prof. S. Felix Wu">吳士駿 教授</h1>
+          <p class="faculty-title" data-en="Dept. of Electrical Engineering, NCKU · Dean, College of Electrical Engineering and Computer Science">國立成功大學電機工程學系 · 電機資訊學院院長</p>
           <ul class="faculty-contact">
-            <li><strong>電話</strong>06-2757575 ext.62375</li>
+            <li><strong data-en="Phone">電話</strong>06-2757575 ext.62375</li>
             <li><strong>Email</strong>sfelixwu@gs.ncku.edu.tw</li>
-            <li><strong>實驗室</strong>倫理計算實驗室（R96213 / ext.62400-3135）</li>
-            <li><strong>地址</strong>奇美樓4樓95407室</li>
-            <li><strong>Google Scholar</strong><a href="https://scholar.google.com/citations?user=vth4SIcAAAAJ&hl=en" target="_blank" rel="noopener">個人學術檔案</a></li>
+            <li><strong data-en="Lab">實驗室</strong><span data-en="Ethics-aware Computing Lab (R96213 / ext.62400-3135)">倫理計算實驗室（R96213 / ext.62400-3135）</span></li>
+            <li><strong data-en="Address">地址</strong><span data-en="Room 95407, 4F, Chi-Mei Building">奇美樓4樓95407室</span></li>
+            <li><strong>Google Scholar</strong><a href="https://scholar.google.com/citations?user=vth4SIcAAAAJ&hl=en" target="_blank" rel="noopener" data-en="Profile">個人學術檔案</a></li>
           </ul>
         </div>
       </div>
@@ -59,74 +63,74 @@
   <!-- 學經歷 -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">學經歷</h2>
-      <p class="section-subtitle">學歷與主要經歷</p>
+      <h2 class="section-title" data-en="Education &amp; Experience">學經歷</h2>
+      <p class="section-subtitle" data-en="Education and career highlights">學歷與主要經歷</p>
 
       <div class="faculty-columns">
         <div>
-          <h3 class="group-heading">學歷</h3>
+          <h3 class="group-heading" data-en="Education">學歷</h3>
           <ul class="timeline-list">
             <li class="timeline-item">
               <span class="timeline-period">1989/08 ~ 1995/06</span>
-              <p class="timeline-desc">美國哥倫比亞大學 計算機科學博士</p>
+              <p class="timeline-desc" data-en="Ph.D. in Computer Science, Columbia University">美國哥倫比亞大學 計算機科學博士</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">1987/08 ~ 1989/06</span>
-              <p class="timeline-desc">美國哥倫比亞大學 計算機科學碩士</p>
+              <p class="timeline-desc" data-en="M.S. in Computer Science, Columbia University">美國哥倫比亞大學 計算機科學碩士</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">1981/08 ~ 1985/06</span>
-              <p class="timeline-desc">東海大學 資訊科學學士</p>
+              <p class="timeline-desc" data-en="B.S. in Information Science, Tunghai University">東海大學 資訊科學學士</p>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="group-heading">經歷</h3>
+          <h3 class="group-heading" data-en="Experience">經歷</h3>
           <ul class="timeline-list">
             <li class="timeline-item">
               <span class="timeline-period">2024/08 ~ present</span>
-              <p class="timeline-desc">成功大學電機資訊學院院長</p>
+              <p class="timeline-desc" data-en="Dean, College of Electrical Engineering and Computer Science, NCKU">成功大學電機資訊學院院長</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2024/08 ~ present</span>
-              <p class="timeline-desc">成功大學電機系教授</p>
+              <p class="timeline-desc" data-en="Professor, Dept. of Electrical Engineering, NCKU">成功大學電機系教授</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2019/01 ~ 2019/12</span>
-              <p class="timeline-desc">東海大學雲創學院院長</p>
+              <p class="timeline-desc" data-en="Dean, Cloud Innovation School, Tunghai University">東海大學雲創學院院長</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2014/08 ~ 2018/12</span>
-              <p class="timeline-desc">美國加州大學戴維斯分校工學院副院長</p>
+              <p class="timeline-desc" data-en="Associate Dean, College of Engineering, University of California, Davis">美國加州大學戴維斯分校工學院副院長</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2011/03 ~ 2015/03</span>
-              <p class="timeline-desc">瑞典布萊津理工大學客座教授</p>
+              <p class="timeline-desc" data-en="Visiting Professor, Blekinge Institute of Technology, Sweden">瑞典布萊津理工大學客座教授</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2007/07 ~ 2024/06</span>
-              <p class="timeline-desc">美國加州大學戴維斯分校計算機科學系教授</p>
+              <p class="timeline-desc" data-en="Professor, Dept. of Computer Science, University of California, Davis">美國加州大學戴維斯分校計算機科學系教授</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2001/01 ~ 2003/03</span>
-              <p class="timeline-desc">IntruVert Networks 技術顧問委員會成員</p>
+              <p class="timeline-desc" data-en="Technical Advisory Board Member, IntruVert Networks">IntruVert Networks 技術顧問委員會成員</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">2000/07 ~ 2007/06</span>
-              <p class="timeline-desc">美國加州大學戴維斯分校計算機科學系副教授</p>
+              <p class="timeline-desc" data-en="Associate Professor, Dept. of Computer Science, University of California, Davis">美國加州大學戴維斯分校計算機科學系副教授</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">1995/07 ~ 2000/06</span>
-              <p class="timeline-desc">美國北卡羅來納州立大學計算機科學系助理教授</p>
+              <p class="timeline-desc" data-en="Assistant Professor, Dept. of Computer Science, North Carolina State University">美國北卡羅來納州立大學計算機科學系助理教授</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">1994/07 ~ 1995/06</span>
-              <p class="timeline-desc">美國哥倫比亞大學計算機科學系講師</p>
+              <p class="timeline-desc" data-en="Instructor, Dept. of Computer Science, Columbia University">美國哥倫比亞大學計算機科學系講師</p>
             </li>
             <li class="timeline-item">
               <span class="timeline-period">1989/07 ~ 1993/08</span>
-              <p class="timeline-desc">IBM 華生實驗室 暑期實習生</p>
+              <p class="timeline-desc" data-en="Summer Intern, IBM T.J. Watson Research Center">IBM 華生實驗室 暑期實習生</p>
             </li>
           </ul>
         </div>
@@ -137,7 +141,7 @@
   <!-- 研究領域 -->
   <section class="section section-alt">
     <div class="container">
-      <h2 class="section-title">研究領域</h2>
+      <h2 class="section-title" data-en="Research Areas">研究領域</h2>
       <div class="tag-grid">
         <span class="tag-pill">Ethics-aware Computing</span>
         <span class="tag-pill">Disinformation</span>
@@ -153,11 +157,11 @@
   <!-- 著作 -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">著作</h2>
-      <p class="section-subtitle">期刊論文、會議論文、專利與研究計劃</p>
+      <h2 class="section-title" data-en="Publications">著作</h2>
+      <p class="section-subtitle" data-en="Journal papers, conference papers, patents, and research projects">期刊論文、會議論文、專利與研究計劃</p>
 
       <div class="pub-group">
-        <h3 class="group-heading">期刊論文（Journal）</h3>
+        <h3 class="group-heading" data-en="Journal Papers">期刊論文（Journal）</h3>
         <ul class="pub-list">
           <li class="pub-item">
             <div class="pub-body">
@@ -181,7 +185,7 @@
       </div>
 
       <div class="pub-group">
-        <h3 class="group-heading">會議論文（Conference）</h3>
+        <h3 class="group-heading" data-en="Conference Papers">會議論文（Conference）</h3>
         <ul class="pub-list">
           <li class="pub-item">
             <div class="pub-body">
@@ -205,7 +209,7 @@
       </div>
 
       <div class="pub-group">
-        <h3 class="group-heading">專利</h3>
+        <h3 class="group-heading" data-en="Patents">專利</h3>
         <ul class="pub-list">
           <li class="pub-item">
             <div class="pub-body">
@@ -229,11 +233,35 @@
       </div>
 
       <div class="pub-group">
-        <h3 class="group-heading">研究計劃</h3>
+        <h3 class="group-heading" data-en="Research Projects">研究計劃</h3>
         <ul class="pub-list">
           <li class="pub-item">
             <div class="pub-body">
-              <p class="pub-title">複合式資安研究與類真實實驗場域</p>
+              <p class="pub-title" data-en="Hybrid Cybersecurity Research and Realistic Testbed (2/2)">複合式資安研究與類真實實驗場域（2/2）</p>
+              <p class="pub-meta">2026.08.01 ~ 2027.07.31</p>
+            </div>
+          </li>
+          <li class="pub-item">
+            <div class="pub-body">
+              <p class="pub-title" data-en="AI System &amp; Programming for Information Security">AI System &amp; programming 應用於資訊安全</p>
+              <p class="pub-meta">2026.01.01 ~ 2026.12.31</p>
+            </div>
+          </li>
+          <li class="pub-item">
+            <div class="pub-body">
+              <p class="pub-title" data-en="University-wide (F) TITAN Program, Subproject 3: Cybersecurity — Research and Applications of Network and Data Security">全校型 (F) TITAN 計畫分項三計畫：Cybersecurity 網路與數據安全之研究與應用</p>
+              <p class="pub-meta">2026.01.01 ~ 2026.12.31</p>
+            </div>
+          </li>
+          <li class="pub-item">
+            <div class="pub-body">
+              <p class="pub-title" data-en="Deep Intelligent Anti-Fraud and Anti-Disinformation Research under Generative AI">生成式 AI 下之深度智慧訊息防詐與防假研究</p>
+              <p class="pub-meta">2025.09.20 ~ 2026.08.31</p>
+            </div>
+          </li>
+          <li class="pub-item">
+            <div class="pub-body">
+              <p class="pub-title" data-en="Hybrid Cybersecurity Research and Realistic Testbed">複合式資安研究與類真實實驗場域</p>
               <p class="pub-meta">2025.08.01 ~ 2026.07.31</p>
             </div>
           </li>
@@ -245,13 +273,13 @@
           </li>
           <li class="pub-item">
             <div class="pub-body">
-              <p class="pub-title">HAPS 智慧通訊之軟硬體整合技術研發</p>
-              <p class="pub-meta">執行期間未公開</p>
+              <p class="pub-title" data-en="Hardware–Software Integration for HAPS Smart Communications">HAPS 智慧通訊之軟硬體整合技術研發</p>
+              <p class="pub-meta" data-en="Project period not disclosed">執行期間未公開</p>
             </div>
           </li>
           <li class="pub-item">
             <div class="pub-body">
-              <p class="pub-title">AI programming 應用於資訊安全</p>
+              <p class="pub-title" data-en="AI Programming for Information Security">AI programming 應用於資訊安全</p>
               <p class="pub-meta">2025.01.01 ~ 2025.12.31</p>
             </div>
           </li>
@@ -263,15 +291,19 @@
   <!-- 開授課程 -->
   <section class="section section-alt">
     <div class="container">
-      <h2 class="section-title">開授課程</h2>
+      <h2 class="section-title" data-en="Courses">開授課程</h2>
       <div class="info-list">
         <div class="info-row">
-          <span class="info-row-label">114 學年度下學期</span>
-          <p class="info-row-value">平行與分散式系統:程式設計與管理</p>
+          <span class="info-row-label" data-en="Fall 2026 (AY 2026–27)">115 學年度上學期</span>
+          <p class="info-row-value" data-en="Design and Applications of Matching Mechanisms; Beauty Contest Theory and Stock-Picking Program Development; Digital Technology and Human–Computer Interaction Showcase; IoT Applications and Innovative Cities; Decentralized Coordination Problems; Data and AI in Urban Governance">配對機制的設計與應用、選美理論與選股程式的開發、數位科技與人機互動展示、物聯網應用與創新城市、去中心化的協調問題、城市治理中的資料與人工智慧</p>
         </div>
         <div class="info-row">
-          <span class="info-row-label">113 學年度下學期</span>
-          <p class="info-row-value">計算機概論</p>
+          <span class="info-row-label" data-en="Spring 2026 (AY 2025–26)">114 學年度下學期</span>
+          <p class="info-row-value" data-en="Parallel and Distributed Systems: Programming and Management">平行與分散式系統:程式設計與管理</p>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label" data-en="Spring 2025 (AY 2024–25)">113 學年度下學期</span>
+          <p class="info-row-value" data-en="Introduction to Computer Science">計算機概論</p>
         </div>
       </div>
     </div>
@@ -280,16 +312,24 @@
   <!-- 指導學生 -->
   <section class="section">
     <div class="container">
-      <h2 class="section-title">指導學生</h2>
-      <p class="section-subtitle">本學年度實驗室成員</p>
+      <h2 class="section-title" data-en="Advised Students">指導學生</h2>
+      <p class="section-subtitle" data-en="Current lab members">本學年度實驗室成員</p>
       <div class="info-list">
         <div class="info-row">
-          <span class="info-row-label">博士班</span>
-          <p class="info-row-value">吳彥廷</p>
+          <span class="info-row-label" data-en="Ph.D.">博士班</span>
+          <p class="info-row-value">吳彥廷、蔡元珽</p>
         </div>
         <div class="info-row">
-          <span class="info-row-label">碩士班</span>
-          <p class="info-row-value">陳威成、周子豪、曾巧瑩、林俊穎、江列騏、洪宗緯、林芷翊、藍璟儀、陳貿群、邢益城、吳文朕、錢信亦、林詠智、黃姿淯、張家銓</p>
+          <span class="info-row-label" data-en="M.S.">碩士班</span>
+          <p class="info-row-value">曾巧瑩、林俊穎、江列騏、洪宗緯、林芷翊、藍璟儀、陳貿群、邢益城、吳文朕、廖昱翔、謝忠廷、盧可宸、陳彤、黃姿淯、楊婉渟、林采玟、錢信亦、張家銓、林詠智、黃程睿、Armin、張庭維、鄭秉恒、何維展、余沛承</p>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label" data-en="Undergraduate">專題生</span>
+          <p class="info-row-value">王晨安、李琦</p>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label" data-en="Alumni (M.S., Class of 2025)">已畢業碩士（114 級）</span>
+          <p class="info-row-value">陳威成、周子豪</p>
         </div>
       </div>
     </div>
@@ -298,8 +338,8 @@
   <!-- 特殊榮譽 -->
   <section class="section section-alt">
     <div class="container">
-      <h2 class="section-title">特殊榮譽</h2>
-      <p class="section-subtitle">目前無公開資料</p>
+      <h2 class="section-title" data-en="Honors">特殊榮譽</h2>
+      <p class="section-subtitle" data-en="No public information yet">目前無公開資料</p>
     </div>
   </section>
 
@@ -307,22 +347,23 @@
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-brand">倫理計算實驗室<span>Ethics-aware Computing Lab</span></p>
+    <p class="footer-brand"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="footer-brand-en" data-en="倫理計算實驗室">Ethics-aware Computing Lab</span></p>
     <nav class="footer-nav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
     </nav>
     <div class="footer-divider"></div>
     <ul class="footer-contact">
-      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
-      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
-      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+      <li><strong data-en="Address">地址</strong><span data-en="R96213, 2F, Qiduan Building, National Cheng Kung University">成功大學起端館 2樓 R96213</span></li>
+      <li><strong>Email</strong><span></span></li>
+      <li><strong data-en="Phone">電話</strong><span>06-2757575 ext.62400-3135</span></li>
     </ul>
-    <p class="footer-copy">&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> <span data-en="Ethics-aware Computing Lab, National Cheng Kung University. All rights reserved.">倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</span></p>
+    <button class="terminal-egg" id="terminalEgg" type="button" aria-label="切換為終端機版面" data-en-aria-label="Switch to terminal layout" hidden>&gt;_</button>
   </div>
 </footer>
 

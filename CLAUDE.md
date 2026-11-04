@@ -3,33 +3,56 @@
 ## 專案規格
 - 純 HTML/CSS/JS，無框架
 - 語言：繁體中文
-- 風格：簡潔學術風，響應式設計
-- 色系：以深藍/白為主（`--color-navy` / `--color-bg`，定義於 `style.css:1-14`）
-- 字型：標題 Noto Serif TC、內文 Noto Sans TC，由各頁 `<head>` 的 Google Fonts
-  `<link>` 載入。**新增頁面時務必一併複製這段 `<link>`**，否則該頁會掉回系統
-  預設字型，跟其他頁面長得不一樣。
+- **雙版面**（2026-11-05 起）：預設是**經典版**（深藍＋金褐的簡潔學術風，`style.css`，
+  即 GitHub 上 `d54deaf` 的設計），頁首 `#themeToggle` 按鈕可切換成**終端機版**
+  （`style-terminal.css`）。經典版的入口是彩蛋：頁尾右下角半透明的 `>_`（`#terminalEgg`）
+  或鍵盤按 `` ` ``；終端機版則在頁首顯示 `[經典版]` 切回。兩份樣式表共用同一份 HTML，**改 HTML 結構時兩個版面都要檢查**；
+  只屬於某一版的元素用 CSS 隱藏（經典版藏 `.window-bar`/`.prompt-line`/`.hero-ascii`，
+  終端機版藏 `.eyebrow-classic`）。經典版的 token 是 `--color-navy`/`--color-accent`/
+  `--font-serif` 等（見 `style.css` 開頭），下面幾行的 token／字型規則是終端機版的。
+- 終端機版風格：**Terminal CLI**——黑底磷光綠、
+  全站等寬字、直角、1px 邊框、無陰影、極淡 CRT 掃描線（照片除外），終端機符號（prompt、`[ ]`
+  按鈕、`//` 分組、`#` 註解、tmux 編號導覽）。響應式設計。
+- 色系：只有深色模式。token 定義在 `style.css` 開頭 `:root`：`--color-bg`（#0a0a0a）、
+  `--color-fg`（#33ff00 主色）、`--color-fg-dim`（次要文字）、`--color-secondary`
+  （#ffb000 琥珀）、`--color-muted`/`--color-border`（#1f521f，**只能用在邊框，對比
+  不足不可當文字色**）、`--glow`。字級只用 `--text-xs` ~ `--text-3xl` 固定級距。
+  元件一律引用變數，不要寫死色碼。
+- 字型：JetBrains Mono（英數）＋ Noto Sans TC（中文 fallback，沒有等寬中文字型可用），
+  由各頁 `<head>` 的 Google Fonts `<link>` 載入。**新增頁面時務必一併複製這段
+  `<link>`**，否則該頁會掉回系統預設字型，跟其他頁面長得不一樣。
+  **Google Fonts 的 JetBrains Mono 不含方塊／框線字元（`█ ╗ ─` 等）**，ASCII art
+  請只用純 ASCII（`_ | / \ + -`），否則會掉到別的字型、字寬對不齊。
 
 ## 檔案結構
 - `index.html` — 首頁：Hero + 研究方向摘要（tag pills，內容取自 `research.html`）
-- `research.html` — 研究方向獨立頁（條列式呈現 7 個研究領域，`.research-list`）
+- `research.html` — 研究方向獨立頁（條列式呈現 7 個研究領域，`.research-list`；下方「研究計劃」
+  區塊跟 `faculty.html` 著作裡的研究計劃是**同一份資料、兩邊各一份**，新增／修改計畫時兩頁都要改）
 - `members.html` — 實驗室成員獨立頁（博士生/碩士生/專題生卡片，不含指導教授
   與已畢業成員，兩者分別在 `faculty.html`／`graduates.html`）
 - `faculty.html` — 教師個人頁（吳士駿教授完整經歷）
 - `publications.html` — 發表著作獨立頁（年份篩選 + 論文列表）
 - `graduates.html` — 畢業生獨立頁（已畢業成員卡片）
-- `favicon.svg` — 分頁圖示，深藍底 + 金褐色 E（Ethics），純 SVG 不依賴字型
+- `favicon.svg` — 分頁圖示，黑底 + 綠色 E（Ethics）+ 琥珀色游標方塊，純 SVG 不依賴字型
 - `images/network-motif.svg` — 首頁 Hero 背景的節點連線圖，呼應社群網路研究主題；
-  由固定亂數種子的 Python 腳本產生（見 2026-09-10 任務紀錄），不是手繪
-- `style.css` — 所有樣式統一放這裡，**不使用 inline style**
-- `script.js` — mobile nav toggle、發表著作年份篩選（僅 `publications.html`）、
-  畢業生年級篩選（僅 `graduates.html`）、捲動進場動畫（全站共用）
+  由固定亂數種子的 Python 腳本產生（見 2026-09-10 任務紀錄），不是手繪；
+  2026-10-05 改為綠線＋方形節點（琥珀色重點節點）
+- `style.css` — 經典版（預設）樣式；`style-terminal.css` — 終端機版樣式。**不使用 inline style**
+- `theme.js` — 在 `<head>` 同步執行，依 `localStorage.theme` 在第一次繪製前換成終端機版
+  樣式表與 favicon（避免換頁閃一下經典版）；切換按鈕邏輯在 `script.js`。
+  **新增頁面時要複製 `<link id="themeStylesheet">` + `<script src="theme.js">` 這兩行**
+- `favicon-terminal.svg`、`images/network-motif-terminal.svg` — 終端機版用的圖示與 Hero 背景；
+  沒有 `-terminal` 的是經典版
+- `script.js` — mobile nav toggle、中英切換（全站共用）、首頁 Hero 標題打字效果（僅 `index.html`）、
+  發表著作年份篩選（僅 `publications.html`）、畢業生年級篩選（僅 `graduates.html`）、
+  捲動進場動畫（全站共用）
 - `images/members/` — 成員大頭照存放處，檔名對應各成員卡片 `<img>` 的 `src`
   （見任務紀錄「成員頭像加入照片版位」）。圖片載入失敗時會自動顯示姓氏色塊
   （`.avatar-fallback`）當備援，所以缺照片不會壞版。
   **照片規格：寬高比 4:3**（例如 800×600 或 1200×900）。卡片照片框是
   `aspect-ratio: 4/3` + `object-fit: cover`，比例不符會被裁切；`object-position:
   top` 會優先保留畫面上方，因此人臉盡量靠上不會被裁掉。
-  目前只有 `felix-wu.jpg`、`hong-zongwei.jpg` 兩張，其餘成員照片使用者表示之後會補。
+  目前已有：`armin.jpg`、`chen-maoqun.jpg`、`felix-wu.jpg`、`hong-zongwei.jpg`、`huang-ziyu.jpg`、`lan-jingyi.jpg`、`lin-caiwen.jpg`、`lin-yongzhi.jpg`、`zeng-qiaoying.jpg`、`zhang-jiaquan.jpg`、`zhou-zihao.jpg`（2026-11-05），其餘成員照片使用者表示之後會補。
 - 聯絡資訊（地址/Email/電話）統一放在每個頁面的 `<footer class="site-footer">`
   （`.footer-contact` class），**沒有獨立的聯絡頁面或聯絡表單**。
 
@@ -38,7 +61,7 @@
 - CSS 一律寫進 `style.css`，不要用 inline style
 
 ## 開發慣例
-- `script.js` 中對頁面專屬元素（`#pubFilter`、`#gradFilter`）的事件綁定都要做
+- `script.js` 中對頁面專屬元素（`#heroTitle`、`#pubFilter`、`#gradFilter`）的事件綁定都要做
   null 檢查，因為並非每個頁面都有這些元素（年份篩選只有 `publications.html`、
   年級篩選只有 `graduates.html`）。
 - 捲動進場動畫的隱藏狀態（`.reveal`）一律由 `script.js` 動態加上，**不要寫進
@@ -47,6 +70,14 @@
 - 新增教師/成員頁面時可參考 `faculty.html` 的 class 命名重用：
   `.faculty-*`、`.timeline-*`（學經歷）、`.tag-*`（研究領域標籤）、
   `.info-*`（開授課程/指導學生列表）、`.pub-group`（著作分類）。
+- **中英切換**：中文寫在元素內文，英文寫在同一元素的 `data-en="..."`；
+  `aria-label` 的英文寫在 `data-en-aria-label`。`script.js` 會整段替換 `textContent`，
+  所以 **`data-en` 只能加在沒有子元素的元素上**（有子元素就把要翻的文字包進
+  `<span data-en>`，例如 logo、頁尾版權、`faculty.html` 聯絡資訊）。
+  **新增或修改任何中文內容時，要一併補上／更新 `data-en`**，否則英文模式會停在中文。
+  人名（學生姓名、姓氏色塊）刻意不加 `data-en`，英文模式維持中文，等使用者提供
+  本人慣用的英文拼法再補。新增頁面時，頁首要複製 `#langToggle` 按鈕（放在
+  `</nav>` 與 `.nav-toggle` 之間，預設 `hidden`）。
 - 所有獨立頁面（`research.html`/`members.html`/`faculty.html`/
   `publications.html`/`graduates.html`）的導覽列都要互相同步：目前所在頁面的
   連結加上 `class="active"`（對應 `.site-nav a.active` CSS，底線標示）。
@@ -883,3 +914,213 @@
   拆成 3 個 section 後進場目標仍是 14 個（3 個分組標題 + 11 張卡片），
   觸發後全部顯示、降級路徑無元素卡住；本地 `http.server` 六頁與兩個 SVG
   皆回傳 200。
+
+### 2026-10-05：全站改為 Terminal CLI 風格
+- **背景**：使用者貼了一份 Terminal CLI 設計系統（黑底綠字、等寬字、直角、終端機
+  符號、CRT 掃描線），要求全站改成這個風格。改版前先把當時未 commit 的成員名單
+  更新與 CI 腳本 commit 並推上 GitHub（`d54deaf`），方便日後整版退回。
+- **決策**（經詢問使用者確認）：全站一次改；打字效果**只用在首頁 Hero 標題**（使用者
+  先前否決過載入淡入，其他頁標題只有游標閃爍、不打字）；成員照片平常綠色單色、
+  hover 恢復原色（後來使用者改成照片一律維持原色，見本則最後）。
+- **做法**：HTML class 名稱幾乎不動，主要重寫 `style.css`；終端機符號（`[ ]`、`//`、
+  `# `、`> `、`--role=`、`+--- ---+`、tmux 導覽編號、卡片 `usr_01` 標題列）全部用
+  CSS 偽元素加，不寫進 HTML 文字。維持置中版面，因為成員格線先前定案的
+  「固定 3 欄 × 300px、外框置中」對齊方式不動（分組標題 `// 博士生` 靠容器左緣，
+  卡片格線置中，兩者左緣不同是已知取捨）。
+- **改動**：
+  - `style.css`：整份改寫。token 換成 `--color-bg`/`--color-fg`/`--color-fg-dim`/
+    `--color-secondary`/`--color-muted` 與 `--text-*` 字級；移除 `--color-navy`、
+    `--radius`、`--font-serif`/`--font-sans`。`body::after` 掃描線（`pointer-events:
+    none`）；`@keyframes blink`（游標）、`glitch`（logo hover）。照片綠色單色＝`<img>`
+    灰階壓暗 + `::after` 綠色 `mix-blend-mode: multiply`（`.member-photo` 設
+    `isolation: isolate`）。新增共用 class `.window-bar`（反白標題列）、`.prompt-line`
+    （自動補 `guest@eclab:~$ ` 提示符）、`.hero-window`/`.hero-ascii`。
+    `prefers-reduced-motion` 下游標不閃、logo 不抖、照片不漸變。
+  - 六頁 `<head>`：字型改成 JetBrains Mono 400/700 + Noto Sans TC 400/700。
+  - 五個獨立頁的小標改成指令（`.page-eyebrow.prompt-line`）：`ls ~/research`、
+    `ls ~/members`、`cat ~/publications.bib`、`ls ~/alumni`、`finger sfelixwu`。
+  - `index.html` Hero 改成終端機視窗：標題列 + `cat ~/about.txt` + 純 ASCII 的
+    「ETHICS」banner（`aria-hidden`）+ `[OK]` 校系 + h1（`#heroTitle`）。
+  - `script.js`：新增 Hero 打字效果。文字原本就寫在 HTML，JS 才清空再逐字打出，
+    並設 `aria-label` 保留完整標題；減少動態效果時不打字。
+  - `favicon.svg`、`images/network-motif.svg` 改配色（motif 節點改成方形）。
+- **驗證方式**：這次在 scratchpad 用 `apt-get download` + `dpkg -x` 取得 headless
+  Chromium 缺的 `libnspr4`/`libnss3`/`libasound2`，設 `LD_LIBRARY_PATH` 跑 Playwright，
+  **不需要 root** 就能截圖（之前的紀錄說無法截圖驗證，現在可以用這個方法）。六頁在
+  1280px 與 375px 都截圖檢查：無 JS 錯誤、無橫向溢出、`document.fonts.check` 確認
+  JetBrains Mono 有載入。截圖抓到並修正兩個問題：方塊字元版 ASCII art 字寬錯亂
+  （改純 ASCII）、照片 multiply 後白底變整片螢光綠（先壓暗再混色）。
+  `node --check script.js`、`.github/scripts/validate.py` 皆通過。
+- **後續（同日）**：使用者要照片維持原色、不要被顏色覆蓋。`style.css` 移除
+  `.member-photo`/`.faculty-avatar` 的灰階 `filter`、`::after` 綠色 multiply 圖層、
+  `isolation` 與對應的 hover／reduced-motion 規則，照片恢復原色顯示（外框、
+  `usr_01` 標題列等終端機樣式不變）。
+- **後續（同日）**：使用者要求 (1) 照片上不要有掃描線 (2) 閃爍游標只留首頁。
+  - 掃描線原本是 `body::after` 整頁 fixed 覆蓋層（z-index 1000），一定蓋過照片。
+    改成 `.site-header`／`main > section`／`.site-footer` 各自一層 `::after`
+    （z-index 2，區塊加 `position: relative`），照片 `<img>` 設 z-index 3 疊在上面。
+    **連帶規則**：`.reveal.is-visible` 的 `transform` 改成 `none`（原本
+    `translateY(0)`）——有 transform 的卡片會自成 stacking context，照片的 z-index
+    就壓不過掃描線。之後若要在卡片或其祖先加 `transform`／`filter`／`opacity < 1`
+    等會產生 stacking context 的屬性，照片會重新出現橫紋，要留意。
+  - 移除 `.page-header .section-title::after` 的 `_` 閃爍游標，只剩首頁 Hero
+    `h1::after` 的 `█`。
+  - 驗證：Playwright 2 倍解析度局部截圖確認照片無橫紋、卡片標題列仍有；
+    computed style 確認其他頁大標 `::after` 為 `none`、首頁仍是 `█`；無 JS 錯誤。
+- **後續（同日）**：使用者要求頁尾的「地址」「Email」先留空白，之後會再補。六頁
+  `.footer-contact` 這兩項只保留標籤、值改成空的 `<span></span>`（電話不變）。
+  `faculty.html` 教師資訊區（`.faculty-contact`）的地址／Email 使用者沒有提到，維持原樣。
+
+### 2026-10-05：頁首右上角加上中英切換按鈕
+- **背景**：使用者要求右上角做一個中英切換按鈕。
+- **決策**：不拆成兩套頁面，英文直接寫在同一個元素的 `data-en` 屬性（理由：使用者
+  常直接改 HTML，中英放在同一行改的時候看得到）；沒有 JS 時照常顯示中文、按鈕
+  隱藏。選擇存在 `localStorage`（讀寫都包 try/catch），換頁沿用。學生姓名不翻（見
+  開發慣例）。
+- **改動**：
+  - 六頁：頁首順序改成 logo → 導覽 → `#langToggle` → `.nav-toggle`（漢堡選單按鈕
+    移到最後，才能在窄螢幕上跟語言按鈕一起靠右）；logo、頁尾品牌、版權文字包進
+    `<span data-en>`；頁尾品牌英文那行改用 `.footer-brand-en` class（原本是
+    `.footer-brand span`，包了 span 之後會誤套到中文名）；所有中文葉節點加上
+    `data-en`，`<title>` 也有。`faculty.html` 聯絡資訊的「實驗室」「地址」值包進 span。
+  - `script.js`：新增中英切換區塊（切換 `textContent`、`aria-label`、`<html lang>`）。
+    Hero 打字效果改成先套用語言再打字（英文 60ms／字），切換語言時會先停掉打字
+    計時器，避免繼續打出舊語言的字。
+  - `style.css`：新增 `.lang-toggle`（`[EN]`／`[中文]`，hover 反白；`[hidden]` 要另外
+    寫 `display: none`，否則會被 class 的 display 蓋掉）。**漢堡選單斷點從 640px 提高到
+    1100px**：實測頁首需要寬度中文約 959px、英文約 1072px，原本 641–1000px 之間中文
+    導覽會被擠到換行、英文會撐出橫向捲動；導覽連結加上 `white-space: nowrap`。
+- **翻譯需確認**（沒有官方英文名稱可查證，先用直譯）：東海大學雲創學院
+  （Cloud Innovation School）、三個研究計畫名稱、畢業生篩選「113 級／114 級」譯為
+  Class of 2024／2025（以民國年 +1911 換算畢業年）、課程學期 114／113 學年度下學期
+  譯為 Spring 2026／Spring 2025。
+- **驗證方式**：Playwright 實測打字途中切換會立刻變成完整英文標題、換頁沿用英文、
+  切回中文正常、`<title>` 與 `<html lang>` 跟著變、關掉 JS 時按鈕不顯示；
+  375／700／1000／1101／1280px 中英文頁首都無橫向溢出；腳本列出所有未加 `data-en`
+  的中文，只剩人名與姓氏色塊。`node --check script.js`、`validate.py` 通過。
+
+### 2026-10-05：RWD 與功能測試（手機／平板／電腦）
+- **背景**：使用者要求測試手機、平板、電腦上的排版與各功能是否正常。
+- **測試範圍**：Playwright（取得函式庫的方式見「全站改為 Terminal CLI 風格」那則）
+  跑 6 種尺寸 × 中英文 × 6 頁＝72 組：手機 375×667、390×844，平板 768×1024、
+  1024×1366（這四種模擬觸控），電腦 1280×800、1920×1080。每組自動檢查：橫向
+  溢出與超出畫面的元素、字級 < 12px、手機觸控目標大小、漢堡選單收合／展開／
+  `aria-expanded`、中英切換來回、首頁打字完成且語言正確、著作年份篩選、畢業生
+  年級篩選、捲到底後捲動進場元素全部顯示、JS 錯誤、資源 404；並逐張檢視截圖。
+- **發現並修正**：
+  - 手機觸控目標偏小：語言按鈕 26px 高、頁尾導覽連結 28px 高。`style.css` 在
+    1100px 以下把 `.lang-toggle` 設 `min-height: 40px`、`.nav-toggle` 改 40×40；
+    `.footer-nav a` 改 `inline-block`，640px 以下 `padding: 8px`。
+  - `graduates.html`「114 級」目前 0 人，篩選後畫面全空、像壞掉。新增
+    `<p class="filter-empty" id="gradEmpty" hidden>`（「# 此級別目前沒有畢業生」，有
+    `data-en`），`script.js` 篩選後若沒有任何可見卡片就顯示它。
+- **結果**：修正後重跑 72 組，0 失敗；剩下的警告只有成員照片尚未補上（member 7 張、
+  graduates 1 張，`onerror` 姓氏色塊備援正常顯示，屬預期）。
+- **後續修正（同日）**：
+  - 觸控裝置的 sticky hover：手機點過語言按鈕／研究方向項目／成員卡片後，hover 反白
+    會一直黏著，看起來像被選取。`style.css` 把 `.lang-toggle`、`.research-list li`、
+    `.member-grid .member-card`、`.pub-filter-btn` 的 `:hover` 包進
+    `@media (hover: hover)`，只在有滑鼠的裝置生效（實測觸控模擬下 tap 後背景維持
+    透明、滑鼠 hover 仍反白）。**之後新增會整塊反白的 hover 效果也要包進這個
+    media query**；純連結（點了就換頁）不需要。
+  - 375px 手機 logo 第二行原本只剩「LAB」掉到第三行：`.logo-en` 加
+    `text-wrap: balance`，改成「NCKU · ETHICS- / AWARE COMPUTING LAB」兩行等長。
+    想過用不斷行連字號（U+2011）讓斷點落在「COMPUTING」前，但實測 Google Fonts 的
+    JetBrains Mono 沒有這個字元（量到寬 6px、非等寬 10px，是 fallback 字型），不採用。
+  - 修正後重跑 72 組測試，仍是 0 失敗。
+
+### 2026-11-05：依使用者提供的最新資料更新成員／教授頁
+- **背景**：使用者貼上吳教授最新的學經歷、著作、研究計劃、開授課程、指導學生名單。
+  學經歷、研究領域、期刊／會議論文、專利跟現有內容一致，未變動。
+- **改動**：
+  - `members.html`：博士生新增蔡元珽；碩一依來源順序改為 16 人（新增廖昱翔、謝忠廷、
+    盧可宸、陳彤、楊婉渟、林采玟、黃程睿、Armin、張庭維、鄭秉恒、何維展、余沛承）；
+    重新加回「專題生」分組（王晨安、李琦）。新成員年級是**推測**（來源沒寫年級，
+    依名單順序排在原有碩一之間，判斷為碩一），待使用者確認。Armin 是英文名，
+    姓氏色塊用「A」。
+  - `graduates.html`：陳威成、周子豪 `data-cohort` 從 113 改成 114（來源寫「碩士 114」）；
+    113 級篩選目前 0 人，會顯示空狀態提示。
+  - `faculty.html`：研究計劃新增 4 項（放在最前面，順序照來源）；開授課程新增
+    「115 學年度上學期」6 門課（一列、以頓號分隔）；指導學生名單同步，另加專題生與
+    已畢業碩士（114 級）兩列，陳威成、周子豪從碩士班移出。
+- **翻譯需確認**：4 個新研究計劃名稱與 6 門新課程名稱的英文都是直譯。
+- **未變動**：頁尾地址／Email 維持空白（使用者先前指定之後再補，這次貼的是教授個人
+  聯絡資訊，`faculty.html` 已有）。
+- **驗證方式**：`.github/scripts/validate.py` 通過（只剩成員照片未補的預期警告）；
+  `members.html` 共 29 張卡片（博 2、碩 25、專題 2）。
+
+### 2026-11-05：預設改回 GitHub 上的經典版，加上切換終端機版的按鈕
+- **背景**：使用者要把版面換回 GitHub 上（`d54deaf`）的設計，但保留終端機版，用按鈕切換。
+- **做法**：沿用目前的 HTML（有最新成員資料與中英切換），只換樣式表：
+  - `style.css` 還原成 `d54deaf` 的版本，再補上新 HTML 需要的規則：語言／版面按鈕、
+    `.filter-empty`、`.footer-brand-en`（原本 `.footer-brand span` 會誤套到中文名）、
+    隱藏終端機專屬元素。原本的終端機樣式改名 `style-terminal.css`。
+  - `favicon.svg`、`images/network-motif.svg` 還原成經典版，終端機版另存 `-terminal` 檔。
+  - 六頁：Google Fonts 改成同時載入兩版需要的字型；頁首在 `#langToggle` 後加
+    `#themeToggle`；五個獨立頁在指令小標前面加回經典版的英文小標（`.eyebrow-classic`）。
+  - `script.js`：版面切換（先載入新樣式表、載好才移除舊的，避免中間沒有樣式）；按鈕文字
+    跟著語言變（由 JS 處理，不用 `data-en`）；Hero 打字效果只在終端機版。
+  - 經典版多了兩顆按鈕後，頁首實測約需 1121px，超過 1120px 容器：導覽間距 32→22px，
+    漢堡選單斷點從 640px 改成 1100px（跟終端機版一致）。
+- **驗證方式**：Playwright（`playwright-core` 裝在 scratchpad，`libnss3` 要從
+  archive.ubuntu.com 的 pool 直接抓 .deb，`apt-get download` 會 404）跑 2 版面 × 中英 ×
+  375/768/1280 × 6 頁：無橫向溢出、無 JS 錯誤、樣式表與小標正確（404 只有未補的成員照片）；
+  實測切換按鈕、換頁沿用、打字中切回經典版標題會補完整、關掉 JS 時按鈕隱藏且用經典版。
+
+- **後續（同日）**：使用者要切換入口更隱密／有趣。經典版頁首不再顯示 `#themeToggle`
+  （`style.css` 設 `display: none`），改成頁尾右下角幾乎看不見的 `>_`（`.terminal-egg`，
+  滑過變綠並展開成 `>_ ./terminal`；640px 以下頁尾 `padding-bottom` 加大避免跟版權文字重疊），
+  加上鍵盤 `` ` `` 快捷鍵（輸入框中不觸發）。切到終端機版時先播約 1 秒開機畫面
+  （`.boot-screen`，CRT 開機展開＋逐行 BIOS 訊息；樣式寫在 `style.css`，因為播放時還是
+  經典版樣式表），減少動態效果時直接切換。終端機版維持頁首 `[經典版]` 按鈕，方便切回。
+  Playwright 實測：彩蛋點擊／開機畫面／`` ` `` 雙向切換／reduced-motion 略過開機畫面皆正常，
+  375／768px 無橫向溢出、無 JS 錯誤。
+- **後續（同日）**：開機訊息改成跟著目前語言（`script.js` 的 `BOOT_LINES.zh`／`.en`）。
+  中文兩行 `[OK]` 前都是 8 個中文字＋相同點點數才對齊，改字時要維持字數一致。
+  `.boot-screen` 字型補上 `"Noto Sans TC"` fallback（JetBrains Mono 沒有中文，原本中文變方框）。
+
+### 2026-11-05：研究方向頁加上研究計劃
+- **改動**：`research.html` 在研究領域列表下方新增 `section-alt` 區塊「研究計劃」，8 項計畫
+  直接複製 `faculty.html` 的 `.pub-list` 標記（含 `data-en`），兩個版面都沿用既有
+  `.pub-item`/`.pub-title`/`.pub-meta` 樣式，沒有新增 CSS。`faculty.html` 原本的研究計劃保留。
+- **驗證方式**：`validate.py` 通過；Playwright 經典／終端機版 × 1280／375px 截圖確認排版正常、
+  無橫向溢出、無 JS 錯誤。
+
+### 2026-11-05：頁尾填入實驗室位置與分機
+- **背景**：使用者說明 `R96213 / ext.62400-3135` 是實驗室的位置與分機。
+- **改動**：六頁 `.footer-contact` 的地址填入 `R96213`，電話從教授分機 `ext.62375` 改成實驗室
+  分機 `06-2757575 ext.62400-3135`（頁尾代表實驗室；教授分機仍在 `faculty.html` 教師資訊區）。
+  Email 仍空白待補。`faculty.html` 的「實驗室」欄位原本就是這組資訊，未變動。
+- **後續（同日）**：頁尾地址改成「成功大學起端館 2樓 R96213」，英文 `data-en` 暫譯
+  「R96213, 2F, Qiduan Building, National Cheng Kung University」（起端館的官方英文名稱待確認）。
+
+### 2026-11-05：換洪宗緯照片（直式照片先裁成 4:3）
+- 使用者給的新照片是直式 960×1280，直接放會因 `object-fit: cover` + `object-position: top`
+  只剩上方一大片帳篷。先裁成 960×720（y=150 起，保留頭部、比讚手勢與上半身）再覆蓋
+  `images/members/hong-zongwei.jpg`；舊的合照在 git `126ac6a` 可還原。
+- **裁圖方法**：sandbox 沒有 Pillow／ImageMagick，用 Playwright 開 headless Chromium，
+  canvas `drawImage` 裁切後 `toDataURL('image/jpeg', 0.88)` 存檔。之後收到非 4:3 的照片可比照。
+- **後續（同日）**：開機畫面擴充成 12 行（主機系所、位置 R96213、各研究領域「模組」載入、
+  掛載成員／著作目錄、歡迎訊息），每行間隔 `BOOT_LINE_MS` 240ms、最後停留 `BOOT_HOLD_MS`
+  800ms，總長約 3.6 秒；點一下開機畫面可略過。`[OK]` 行用 `bootOk(label, width)` 自動補點點：
+  中文 width 16（項目固定 8 個中文字）、英文 width 34（最長項目 31 字元，width 要 ≥ 最長＋3
+  才對得齊）。640px 以下 `.boot-screen` 字級 0.68rem，英文最長行不換行。
+  Playwright 實測中英文 × 1280／375px 無換行、無 JS 錯誤，點擊略過約 0.6 秒內切換完成。
+- **後續（同日）**：開機完（含點擊略過）導向 `index.html` 最上面，由 `theme.js` 直接套用終端機版，
+  首頁 Hero 標題會重新打字；開機畫面一直蓋到換頁為止。`localStorage` 存不了時無法把設定帶到
+  下一頁，改成原地切換並 `scrollTo` 最上面。切回經典版、減少動態效果（沒有開機畫面）時維持原地
+  切換。Playwright 實測：從 members.html 頁底切換 → 落在 index.html、scrollY 0、終端機版、標題打字中；
+  略過與封鎖儲存空間兩種路徑皆正常、無 JS 錯誤。
+
+### 2026-11-05：手機／平板 RWD 檢測與資安檢測
+- **RWD**：Playwright 觸控模擬 4 種尺寸（375×667、390×844、768×1024、1024×1366）× 2 版面 ×
+  中英 × 6 頁（腳本 `rwd.js` 在 scratchpad，一次跑一種尺寸，96 組一次跑完會被中斷）。檢查橫向溢出、
+  超出畫面元素、頁首元素重疊、字級、觸控目標、漢堡選單、中英切換、著作／畢業生篩選、捲動進場、
+  彩蛋 `>_` → 開機 → 首頁、`[經典版]` 切回、JS 錯誤與 404。結果 0 失敗；修正兩項警告（只在 1100px 以下）：
+  `.pub-filter-btn` `min-height: 40px`（原本 32–34px，兩份 CSS 都改）；經典版 `.logo-en`／
+  `.footer-brand-en` 放大到 0.75rem（原本約 11px）。修正後 0 失敗 0 警告。
+- **資安**：無 `innerHTML`/`eval`、`localStorage` 值都是嚴格比對、外部資源只有 Google Fonts（HTTPS）、
+  `target="_blank"` 都有 `noopener`、無混合內容、git 歷史無密碼／金鑰、照片（含歷史版本）無 GPS。
+  `ci.yml` 加上 `permissions: contents: read`。**待使用者決定**：`CLAUDE.md` 會被 GitHub Pages
+  公開在 `/CLAUDE.md`（repo 本身也是 public）；沒有 CSP（Pages 不能設 header，只能用 `<meta>`，
+  但 32 個 inline `onerror` 會擋住嚴格 CSP，要先改成 `script.js` 統一處理）。

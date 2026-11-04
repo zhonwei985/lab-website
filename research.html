@@ -3,30 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>研究方向 | 倫理計算實驗室</title>
+<title data-en="Research | Ethics-aware Computing Lab">研究方向 | 倫理計算實驗室</title>
 <meta name="description" content="倫理計算實驗室的核心研究方向，涵蓋倫理計算、假訊息偵測、社群網路分析、資訊安全、未來網路架構與協定、分散式系統與作業系統。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<link rel="stylesheet" href="style.css" id="themeStylesheet">
+<script src="theme.js"></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo">倫理計算實驗室<span class="logo-en">NCKU · Ethics-aware Computing Lab</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">
+    <a href="index.html" class="logo"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="logo-en" data-en="NCKU · 倫理計算實驗室">NCKU · Ethics-aware Computing Lab</span></a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" class="active" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
+    </nav>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English" data-en="中文" data-en-aria-label="切換為中文" hidden>EN</button>
+    <button class="theme-toggle" id="themeToggle" type="button" hidden>終端機版</button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" data-en-aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">首頁</a>
-      <a href="research.html" class="active">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
-    </nav>
   </div>
 </header>
 
@@ -35,9 +38,10 @@
   <!-- 研究方向 -->
   <section class="page-header">
     <div class="container">
-      <p class="page-eyebrow">Research</p>
-      <h2 class="section-title">研究方向</h2>
-      <p class="section-subtitle">我們的研究涵蓋以下幾個核心領域</p>
+      <p class="page-eyebrow eyebrow-classic">Research</p>
+      <p class="page-eyebrow prompt-line">ls ~/research</p>
+      <h2 class="section-title" data-en="Research">研究方向</h2>
+      <p class="section-subtitle" data-en="Our research spans the following core areas">我們的研究涵蓋以下幾個核心領域</p>
     </div>
   </section>
 
@@ -55,26 +59,85 @@
     </div>
   </section>
 
+  <!-- 研究計劃：與 faculty.html「著作 › 研究計劃」同一份資料，更新時兩邊要一起改 -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title" data-en="Research Projects">研究計劃</h2>
+      <p class="section-subtitle" data-en="Ongoing and recent research projects">執行中與近期的研究計劃</p>
+      <ul class="pub-list">
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="Hybrid Cybersecurity Research and Realistic Testbed (2/2)">複合式資安研究與類真實實驗場域（2/2）</p>
+            <p class="pub-meta">2026.08.01 ~ 2027.07.31</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="AI System &amp; Programming for Information Security">AI System &amp; programming 應用於資訊安全</p>
+            <p class="pub-meta">2026.01.01 ~ 2026.12.31</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="University-wide (F) TITAN Program, Subproject 3: Cybersecurity — Research and Applications of Network and Data Security">全校型 (F) TITAN 計畫分項三計畫：Cybersecurity 網路與數據安全之研究與應用</p>
+            <p class="pub-meta">2026.01.01 ~ 2026.12.31</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="Deep Intelligent Anti-Fraud and Anti-Disinformation Research under Generative AI">生成式 AI 下之深度智慧訊息防詐與防假研究</p>
+            <p class="pub-meta">2025.09.20 ~ 2026.08.31</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="Hybrid Cybersecurity Research and Realistic Testbed">複合式資安研究與類真實實驗場域</p>
+            <p class="pub-meta">2025.08.01 ~ 2026.07.31</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title">Wiwynn Software Hotspot Analysis</p>
+            <p class="pub-meta">2025.09.01 ~ 2026.06.30</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="Hardware–Software Integration for HAPS Smart Communications">HAPS 智慧通訊之軟硬體整合技術研發</p>
+            <p class="pub-meta" data-en="Project period not disclosed">執行期間未公開</p>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-body">
+            <p class="pub-title" data-en="AI Programming for Information Security">AI programming 應用於資訊安全</p>
+            <p class="pub-meta">2025.01.01 ~ 2025.12.31</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <p class="footer-brand">倫理計算實驗室<span>Ethics-aware Computing Lab</span></p>
+    <p class="footer-brand"><span data-en="Ethics-aware Computing Lab">倫理計算實驗室</span><span class="footer-brand-en" data-en="倫理計算實驗室">Ethics-aware Computing Lab</span></p>
     <nav class="footer-nav">
-      <a href="index.html">首頁</a>
-      <a href="research.html">研究方向</a>
-      <a href="faculty.html">指導教授</a>
-      <a href="members.html">實驗室成員</a>
-      <a href="publications.html">發表著作</a>
-      <a href="graduates.html">畢業生</a>
+      <a href="index.html" data-en="Home">首頁</a>
+      <a href="research.html" data-en="Research">研究方向</a>
+      <a href="faculty.html" data-en="Advisor">指導教授</a>
+      <a href="members.html" data-en="Members">實驗室成員</a>
+      <a href="publications.html" data-en="Publications">發表著作</a>
+      <a href="graduates.html" data-en="Alumni">畢業生</a>
     </nav>
     <div class="footer-divider"></div>
     <ul class="footer-contact">
-      <li><strong>地址</strong><span>國立成功大學 奇美樓4樓95407室</span></li>
-      <li><strong>Email</strong><span>sfelixwu@gs.ncku.edu.tw</span></li>
-      <li><strong>電話</strong><span>06-2757575 ext.62375</span></li>
+      <li><strong data-en="Address">地址</strong><span data-en="R96213, 2F, Qiduan Building, National Cheng Kung University">成功大學起端館 2樓 R96213</span></li>
+      <li><strong>Email</strong><span></span></li>
+      <li><strong data-en="Phone">電話</strong><span>06-2757575 ext.62400-3135</span></li>
     </ul>
-    <p class="footer-copy">&copy; <span id="year"></span> 倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> <span data-en="Ethics-aware Computing Lab, National Cheng Kung University. All rights reserved.">倫理計算實驗室 Ethics-aware Computing Lab. All rights reserved.</span></p>
+    <button class="terminal-egg" id="terminalEgg" type="button" aria-label="切換為終端機版面" data-en-aria-label="Switch to terminal layout" hidden>&gt;_</button>
   </div>
 </footer>
 
