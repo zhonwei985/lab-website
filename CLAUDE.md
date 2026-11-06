@@ -52,7 +52,7 @@
   **照片規格：寬高比 4:3**（例如 800×600 或 1200×900）。卡片照片框是
   `aspect-ratio: 4/3` + `object-fit: cover`，比例不符會被裁切；`object-position:
   top` 會優先保留畫面上方，因此人臉盡量靠上不會被裁掉。
-  目前已有：`armin.jpg`、`chen-maoqun.jpg`、`felix-wu.jpg`、`hong-zongwei.jpg`、`huang-ziyu.jpg`、`lan-jingyi.jpg`、`lin-caiwen.jpg`、`lin-yongzhi.jpg`、`zeng-qiaoying.jpg`、`zhang-jiaquan.jpg`、`zhou-zihao.jpg`（2026-11-05），其餘成員照片使用者表示之後會補。
+  目前已有：`armin.jpg`、`chen-maoqun.jpg`、`chen-tong.jpg`、`felix-wu.jpg`、`hong-zongwei.jpg`、`huang-ziyu.jpg`、`lan-jingyi.jpg`、`lin-caiwen.jpg`、`lin-yongzhi.jpg`、`zeng-qiaoying.jpg`、`zhang-jiaquan.jpg`、`zhou-zihao.jpg`（2026-11-06），其餘成員照片使用者表示之後會補。
 - 聯絡資訊（地址/Email/電話）統一放在每個頁面的 `<footer class="site-footer">`
   （`.footer-contact` class），**沒有獨立的聯絡頁面或聯絡表單**。
 
